@@ -10,7 +10,7 @@ server.set('views', path.resolve(`src`, `views`))
 
 server.get(`/`, (req, res) => {
 
-})
+});
 
 
 //creating port
