@@ -1,0 +1,36 @@
+<div class="container d-flex justify-content-center align-items-center ">
+        <div class="card p-3 shadow-lg" style="width: 350px;">
+            <img src="/image/JobNest_Icon.png"  alt="icon" class="img-fluid rounded " />
+            <h3 class="text-center mb-3">Sign Up</h3>
+
+            <form action="/register" method="post">
+               <div class="mb-3">
+                    <label for="email" class="form-label">User Name</label>
+                    <input type="text" class="form-control" id="username" placeholder="Enter your Name" required>
+                </div>
+                <!-- Email Field -->
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                </div>
+
+                <!-- Password Field -->
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label">Confrim Password</label>
+                    <input type="password" class="form-control" id="conpassword" placeholder="Enter your confrim password" required>
+                </div>
+
+                <!-- Register Button -->
+                <button type="submit" class="btn btn-warning w-100">Register</button>
+            </form>
+
+            <div class="text-center mt-3">
+                <p>Have an account? <a href="/login" class="text-decoration-none">Login</a></p>
+            </div>
+        </div>
+    </div>
