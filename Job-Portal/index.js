@@ -3,7 +3,7 @@ import path from "path"
 import ejsLayout from "express-ejs-layouts"
 
 //import controller
-import { loginView, registerView } from "./src/controllers/index.controller.js";
+import { loginView, registerView, login, register } from "./src/controllers/user.controller.js";
 
 //creating server
 const server = express();
@@ -23,6 +23,10 @@ server.get(`/`, (req, res) => {
 server.get(`/login`, loginView);
 server.get(`/register`, registerView);
 
+
+//login and register post func
+server.post(`/login`, login)
+server.post(`/register`, register)
 
 
 
