@@ -29,7 +29,6 @@ export const login = (req, res) => {
      else if (req.session.role === "Admin") {
           return res.status(200).render("adminDashboard", { sessionEmail: req.session.email })
      }
-
 }
 
 export const register = (req, res) => {

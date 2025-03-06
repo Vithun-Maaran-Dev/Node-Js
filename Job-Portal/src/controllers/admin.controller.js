@@ -1,3 +1,3 @@
 export const adminDashboardView = (req, res) => {
-     res.redirect('adminDashboard');
+     return res.render('adminDashboard', { sessionEmail: req.session.email });
 }

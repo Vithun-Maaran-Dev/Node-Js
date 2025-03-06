@@ -1,11 +1,10 @@
 export const adminAuth = (req, res, next) => {
-     if (!req.session.email) {
-          return res.redirect("/login"); // Redirect to login if not logged in
-     }
 
-     if (req.session.role === "Admin") {
-          next(); // Proceed if user is an admin
+     if (req.session.email && req.session.role === "Admin") {
+          return next(); // Proceed if user is an admin
      }
+     else {
+          return res.redirect("/login"); // Redirect unauthorized users
+     };
+}
 
-     return res.redirect("/"); // Redirect unauthorized users
-};
