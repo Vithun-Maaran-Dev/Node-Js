@@ -22,7 +22,7 @@ let users = [
      }
 ]
 
-export const addUser = (reqData) => {
+export const registerUser = (reqData) => {
      try {
           const { username, email, password, role } = reqData;
 
@@ -46,4 +46,18 @@ export const addUser = (reqData) => {
           console.log(err);
           return false;
      }
+}
+
+export const loginUser = (reqData) => {
+
+     const { email, password } = reqData;
+
+     let user = users.find(user => user.email === email && user.password === password)
+
+     if (user) {
+          return { isLogin: true, data: { _id: user._id, email: user.email, role: user.role } }
+     } else {
+          return { isLogin: false, data: { message: `Incorrect Username and Password.` } }
+     }
+
 }

@@ -5,9 +5,10 @@ import session from "express-session";
 
 
 //import controller
-import { loginView, registerView, login, register } from "./src/controllers/users.controller.js";
+import { loginView, registerView, login, register, logout } from "./src/controllers/users.controller.js";
 import { validateUser } from "./src/middleware/users.middleware.js";
-
+import { adminDashboardView } from "./src/controllers/admin.controller.js";
+import { adminAuth } from "./src/middleware/auth.middleware.js";
 
 //creating server
 const server = express();
@@ -29,7 +30,6 @@ server.use(session({
      }
 }))
 
-
 server.get(`/`, (req, res) => {
      res.render("index")
 });
@@ -43,7 +43,16 @@ server.get(`/register`, registerView);
 server.post(`/login`, login)
 server.post(`/register`, validateUser, register)
 
+//logout
+server.get(`/logout`, logout);
 
+//user routes
+
+//recuriter routes
+
+
+//admin routes
+server.get(`/adminDashboard`, adminAuth, adminDashboardView)
 
 
 
