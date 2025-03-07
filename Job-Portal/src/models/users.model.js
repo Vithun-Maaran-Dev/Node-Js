@@ -35,7 +35,6 @@ export const registerUser = (reqData) => {
                     role: role
                }
                users.push(userData);
-               console.log(users)
                return true;
           }
           else {

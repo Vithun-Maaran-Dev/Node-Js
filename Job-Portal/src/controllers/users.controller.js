@@ -1,3 +1,4 @@
+import { getAllJobs } from "../models/jobs.model.js";
 import { registerUser, loginUser } from "../models/users.model.js";
 
 export const loginView = (req, res) => {
@@ -20,14 +21,12 @@ export const login = (req, res) => {
      req.session.role = isUser.data["role"];
      req.session._id = isUser.data["_id"];
 
-     if (req.session.role === "J") {
-          return res.status(200).redirect("jobs")
+     if (req.session.role === "J" || req.session.role === "R" || req.session.role === "Admin") {
+          const jobsList = getAllJobs();
+          return res.render("jobs", { jobs: jobsList })
      }
-     else if (req.session.role === "R") {
-          return res.status(200).redirect("postedJobs")
-     }
-     else if (req.session.role === "Admin") {
-          return res.status(200).render("adminDashboard", { sessionEmail: req.session.email })
+     else {
+          return res.redirect("login")
      }
 }
 

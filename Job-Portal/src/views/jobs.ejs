@@ -1,1 +1,21 @@
-JObs
+<div class="row">
+        <!-- Job Card -->
+         <% jobs.forEach(job => { %>
+               <div class="col-md-6 col-sm-6 col-lg-3 mt-3 ">
+                      <div class="card p-2 shadow-sm">
+                         <div class="card-body">
+                              <h6 class="card-title text-primary mb-1"><%=job.title %> </h6>
+                               <p class="small mb-2"><strong><%=job.company %></strong></p>
+                              <p class="text-muted small mb-1"><%=job.locatoin %></p>
+                              <p class="small mb-2"><strong>Salary:</strong><%=job.salary %></p>
+                              <p>Skills: 
+                                   <%job.skills.forEach(skill => { %>
+                                         <span class="badge bg-success"><%=skill  %></span> 
+                                   <%}); %>
+                              </p>
+                              <a href="/jobs/<%=job.id %>" class="btn btn-sm btn-primary">View Job</a>
+                         </div>
+                      </div>
+               </div>
+         <%}); %>
+    </div>

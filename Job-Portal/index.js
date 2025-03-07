@@ -9,6 +9,7 @@ import { loginView, registerView, login, register, logout } from "./src/controll
 import { validateUser } from "./src/middleware/users.middleware.js";
 import { adminDashboardView } from "./src/controllers/admin.controller.js";
 import { adminAuth } from "./src/middleware/auth.middleware.js";
+import { jobsView, jobView } from "./src/controllers/jobs.controller.js";
 
 //creating server
 const server = express();
@@ -30,6 +31,12 @@ server.use(session({
      }
 }))
 
+//Making session globally to access in side side the application
+server.use((req, res, next) => {
+     res.locals.session = req.session;  //making session in all views
+     next();
+})
+
 server.get(`/`, (req, res) => {
      res.render("index")
 });
@@ -46,7 +53,9 @@ server.post(`/register`, validateUser, register)
 //logout
 server.get(`/logout`, logout);
 
-//user routes
+//jobs routes
+server.get(`/jobs`, jobsView)
+server.get('/jobs/:id', jobView)
 
 //recuriter routes
 
