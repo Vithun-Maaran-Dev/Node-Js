@@ -61,7 +61,7 @@ export const register = (req, res) => {
 // }
 
 
-export const appliedJob = (req, res) => {
+export const appliedJobView = (req, res) => {
      const appliedJobsByUser = appliedJobIdByUser(parseInt(req.session._id));
 
      if (appliedJobsByUser.success) {

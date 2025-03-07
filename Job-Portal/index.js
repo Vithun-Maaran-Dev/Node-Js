@@ -5,7 +5,7 @@ import session from "express-session";
 
 
 //import controller
-import { loginView, registerView, login, register, appliedJob, logout } from "./src/controllers/users.controller.js";
+import { loginView, registerView, login, register, appliedJobView, logout } from "./src/controllers/users.controller.js";
 import { validateUser } from "./src/middleware/users.middleware.js";
 import { adminDashboardView } from "./src/controllers/admin.controller.js";
 import { adminAuth, userAuth } from "./src/middleware/auth.middleware.js";
@@ -59,7 +59,7 @@ server.get('/jobs/:id', jobView)
 
 //user routes
 // server.get('/apply/:jobId', userAuth, applyJob)
-server.get('/appliedJob', userAuth, appliedJob)
+server.get('/appliedJob', userAuth, appliedJobView)
 
 
 //recuriter routes
