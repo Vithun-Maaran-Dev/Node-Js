@@ -80,7 +80,7 @@ export const appliedJob = (req, res) => {
           return res.status(200).render('appliedJobs', { isAppliedJob: true, appliedJobs: jobs })
      }
 
-     return res.status(200).render('appliedJobs', { isAppliedJob: false, message: 'No Jobs Applied.' })
+     return res.status(404).render('appliedJobs', { isAppliedJob: false, message: 'No Jobs Applied.' })
 
 
 }
