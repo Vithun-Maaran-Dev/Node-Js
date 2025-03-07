@@ -11,8 +11,9 @@ export const jobView = (req, res) => {
 
      const job = getJob(jobId);
      if (!job) {
-          return res.status(404).render('job', { isJob: false })
+          return res.status(404).render('job', { isJob: false, message: 'No such job found.' })
      }
      return res.status(200).render('job', { isJob: true, job: job })
 }
+
 

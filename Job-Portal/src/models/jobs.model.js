@@ -14,7 +14,7 @@ let jobs = [
                "Knowledge of databases (SQL, NoSQL)",
                "Strong problem-solving skills"
           ],
-          applicant_id: [2],
+          applicant_id: [],
           recuriter_id: 3
      },
      {
@@ -32,7 +32,7 @@ let jobs = [
                "Knowledge of databases (SQL, NoSQL)",
                "Strong problem-solving skills"
           ],
-          applicant_id: [2],
+          applicant_id: [],
           recuriter_id: 3
      },
 

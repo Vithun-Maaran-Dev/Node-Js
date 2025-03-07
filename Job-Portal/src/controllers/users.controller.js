@@ -1,5 +1,6 @@
-import { getAllJobs } from "../models/jobs.model.js";
-import { registerUser, loginUser } from "../models/users.model.js";
+import { getAllJobs, getJob } from "../models/jobs.model.js";
+import { registerUser, loginUser, appliedJobIdByUser } from "../models/users.model.js";
+
 
 export const loginView = (req, res) => {
      res.render('login', { isError: false, errorMessage: `` });
@@ -37,6 +38,51 @@ export const register = (req, res) => {
           return res.status(400).render('register', { isError: true, errorMessages: ['Something went wrong while Registering. Try after sometime'] });
      }
      return res.status(200).redirect(`login`)
+}
+
+// export const applyJob = (req, res) => {
+//      const jobId = parseInt(req.params.jobId);
+//      if (req.session.role === 'J') {
+//           let appliedJobs = []
+//           const jobData = addJob(parseInt(req.session._id), jobId);
+
+//           if (jobData.success) {
+//                jobData.appliedJobIds.forEach(appliedJobId => {
+//                     let job = getJob(appliedJobId.JobId) 
+
+
+//                })
+//           }
+//           return res.status(200).render('appliedJob', { appliedJob: appliedJobs })
+//      }
+//      else {
+//           return res.status(200).render('job', { isJob: false, message: 'Something went wrong while appling the Job. Please try after some time' })
+//      }
+// }
+
+
+export const appliedJob = (req, res) => {
+     const appliedJobsByUser = appliedJobIdByUser(parseInt(req.session._id));
+
+     if (appliedJobsByUser.success) {
+          let jobs = []
+          appliedJobsByUser.appliedJobs["appliedjob"].forEach(appliedJobByUser => {
+               const jobData = getJob(appliedJobByUser.JobId);
+               let job = {
+                    id: jobData.id,
+                    title: jobData.title,
+                    company: jobData.company,
+                    appliedDate: appliedJobByUser.appliedDate,
+                    status: appliedJobByUser.status
+               }
+               jobs.push({ ...job })
+          });
+          return res.status(200).render('appliedJobs', { isAppliedJob: true, appliedJobs: jobs })
+     }
+
+     return res.status(200).render('appliedJobs', { isAppliedJob: false, message: 'No Jobs Applied.' })
+
+
 }
 
 export const logout = (req, res) => {

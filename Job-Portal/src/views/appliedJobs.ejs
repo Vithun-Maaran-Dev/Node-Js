@@ -1,0 +1,39 @@
+ <% if (!isAppliedJob) { %>
+        <div class="alert alert-danger text-center" role="alert">
+            <p class="mb-2"><%= message%></p>
+            <a href="/jobs" class="btn btn-primary btn-sm">Back to Jobs</a>
+        </div>
+    <% } else { %>
+        <div class="container mt-4">
+                <h2 class="mb-3">Applied Job Listings</h2>
+                <table class="table table-bordered table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Job ID</th>
+                            <th>Title</th>
+                            <th>Company</th>
+                            <th>Applied Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="jobTableBody">
+                        <!-- Data will be inserted here -->
+                        <% appliedJobs.forEach(job => { %>
+                            <tr>
+                                <td><%=job.id %></td>
+                                <td><%=job.title%></td>
+                                <td><%=job.company%></td>
+                                <td><%=job.appliedDate%></td>
+                                <% if (job.status === 'W') { %>
+                                     <td><span class="badge bg-info">Appied</span></td>
+                                <% } else if(job.status === 'A') {%>
+                                    <td><span class="badge bg-success">Accepted</span></td>
+                                <% } else if(job.status === 'R') {%>
+                                    <td><span class="badge bg-danger">Rejected</span></td>
+                                <% } %>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+        </div>
+    <% } %>

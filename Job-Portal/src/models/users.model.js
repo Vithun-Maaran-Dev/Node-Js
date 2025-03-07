@@ -4,21 +4,39 @@ let users = [
           username: `Vithun Maaran`,
           email: `a.vithunmaaran@gmail.com`,
           password: `Vithunmaaran@2000#`,
-          role: `Admin`
+          role: `Admin`,
      },
      {
           _id: 2,
           username: `Joe`,
           email: `Joe@gmail.com`,
           password: `Joe@2000#`,
-          role: `J`
+          role: `J`,
      },
      {
           _id: 3,
           username: `Sow`,
           email: `Sow@gmail.com`,
           password: `Sow@2000#`,
-          role: `R`
+          role: `R`,
+     }
+]
+
+let appliedJobs = [
+     {
+          userId: 2,
+          appliedjob: [
+               {
+                    JobId: 1,
+                    appliedDate: '27/01/2000',
+                    status: 'A'
+               }
+               , {
+                    JobId: 2,
+                    appliedDate: '28/01/2000',
+                    status: 'R'
+               }
+          ]
      }
 ]
 
@@ -32,7 +50,8 @@ export const registerUser = (reqData) => {
                     username: username,
                     email: email,
                     password: password,
-                    role: role
+                    role: role,
+                    appliedJob: []
                }
                users.push(userData);
                return true;
@@ -60,3 +79,25 @@ export const loginUser = (reqData) => {
      }
 
 }
+
+export const appliedJobIdByUser = (userId) => {
+     const appliedJobsData = appliedJobs.find(appliedJob => appliedJob.userId === userId);
+     if (appliedJobsData) {
+          return { success: true, appliedJobs: appliedJobsData };
+     }
+     return { success: false }
+
+}
+
+// export const addJob = (userId, JobId) => {
+//      const userData = appliedJobs.find(user => user._id === userId)
+//      if (userData) {
+//           const date = new Date();
+//           const formattedDate = date.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' });
+
+//           userData.appliedjob.push({ JobId, appliedDate: formattedDate });
+
+//           return { success: true, appliedJobIds: userData.appliedjob };
+//      }
+//      return false
+// }
