@@ -101,15 +101,16 @@ export const appliedJobIdByUser = (userId) => {
 
 }
 
-// export const addJob = (userId, JobId) => {
-//      const userData = appliedJobs.find(user => user._id === userId)
-//      if (userData) {
-//           const date = new Date();
-//           const formattedDate = date.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' });
+export const addJob = (userId, JobId) => {
+     const userData = appliedJobs.find(user => user.userId === userId)
 
-//           userData.appliedjob.push({ JobId, appliedDate: formattedDate });
+     if (userData) {
+          const date = new Date();
+          const formattedDate = date.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' });
 
-//           return { success: true, appliedJobIds: userData.appliedjob };
-//      }
-//      return false
-// }
+          userData.appliedjob.push({ JobId: JobId, appliedDate: formattedDate, status: 'W' });
+
+          return { success: true, appliedJobIds: userData.appliedjob };
+     }
+     return { success: false, appliedJobIds: [] }
+}

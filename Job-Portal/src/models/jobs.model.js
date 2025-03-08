@@ -32,12 +32,9 @@ let jobs = [
                "Knowledge of databases (SQL, NoSQL)",
                "Strong problem-solving skills"
           ],
-          applicant_id: [],
+          applicant_id: [2],
           recuriter_id: 3
      },
-
-
-
 ]
 
 export const getAllJobs = () => {
@@ -47,4 +44,16 @@ export const getAllJobs = () => {
 export const getJob = (jobId) => {
      const job = jobs.find(job => job.id === jobId)
      return job;
+}
+
+export const addApplicant = (userId, jobId) => {
+     const job = jobs.find(job => job.id === jobId)
+
+     if (job) {
+          job.applicant_id.push(userId);
+          return true;
+     }
+     else {
+          return false;
+     }
 }

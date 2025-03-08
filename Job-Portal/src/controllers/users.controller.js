@@ -1,5 +1,5 @@
-import { getAllJobs, getJob } from "../models/jobs.model.js";
-import { registerUser, loginUser, appliedJobIdByUser } from "../models/users.model.js";
+import { addApplicant, getAllJobs, getJob } from "../models/jobs.model.js";
+import { registerUser, loginUser, appliedJobIdByUser, addJob } from "../models/users.model.js";
 
 
 export const loginView = (req, res) => {
@@ -45,49 +45,73 @@ export const applyJob = (req, res) => {
      const jobId = parseInt(req.params.jobId);
      const userId = parseInt(req.session._id);
 
+     if (req.session.role === 'J') {
+          let appliedJobs = [];
 
-     // if (req.session.role === 'J') {
-     //      let appliedJobs = []
-     //      const jobData = addJob(parseInt(req.session._id), jobId);
+          const jobData = addJob(userId, jobId);
+          const applicantAdded = addApplicant(userId, jobId);
 
-     //      if (jobData.success) {
-     //           jobData.appliedJobIds.forEach(appliedJobId => {
-     //                let job = getJob(appliedJobId.JobId)
+          if (jobData.success && applicantAdded) {
+               jobData.appliedJobIds.forEach(appliedJob => {
+                    let job = getJob(appliedJob.JobId);
 
+                    // Ensure job is valid and has necessary details
+                    if (job) {
+                         let jobJson = {
+                              id: job.id,
+                              title: job.title,
+                              company: job.company,
+                              appliedDate: appliedJob.appliedDate, // Add applied date
+                              status: appliedJob.status, // Add status
+                         };
 
-     //           })
-     //      }
-     //      return res.status(200).render('appliedJob', { appliedJob: appliedJobs })
-     // }
-     // else {
-     //      return res.status(200).render('job', { isJob: false, message: 'Something went wrong while appling the Job. Please try after some time' })
-     // }
-}
+                         appliedJobs.push(jobJson);
+                    }
+               });
+
+               //console.log(appliedJobs);
+               return res.status(200).render('appliedJobs', { isAppliedJob: true, appliedJobs: appliedJobs });
+          } else {
+               return res.status(200).render('job', { isJob: false, message: 'Something went wrong while applying for the Job. Please try again later.' });
+          }
+     }
+     else {
+          return res.redirect('login');
+     }
+};
+
 
 
 export const appliedJobView = (req, res) => {
-     const appliedJobsByUser = appliedJobIdByUser(parseInt(req.session._id));
+     const userId = parseInt(req.session._id);
+     const appliedJobsByUser = appliedJobIdByUser(userId);
 
      if (appliedJobsByUser.success) {
-          let jobs = []
+          let jobs = [];
+
           appliedJobsByUser.appliedJobs["appliedjob"].forEach(appliedJobByUser => {
                const jobData = getJob(appliedJobByUser.JobId);
-               let job = {
-                    id: jobData.id,
-                    title: jobData.title,
-                    company: jobData.company,
-                    appliedDate: appliedJobByUser.appliedDate,
-                    status: appliedJobByUser.status
+
+               // Ensure jobData is valid before adding to response
+               if (jobData) {
+                    let job = {
+                         id: jobData.id,
+                         title: jobData.title,
+                         company: jobData.company,
+                         appliedDate: appliedJobByUser.appliedDate, // Add applied date
+                         status: appliedJobByUser.status // Add status
+                    };
+                    jobs.push(job);
                }
-               jobs.push({ ...job })
           });
-          return res.status(200).render('appliedJobs', { isAppliedJob: true, appliedJobs: jobs })
+
+          // Return JSON response instead of rendering an EJS page
+          return res.status(200).render('appliedJobs', { isAppliedJob: true, appliedJobs: jobs });
      }
 
-     return res.status(404).render('appliedJobs', { isAppliedJob: false, message: 'No Jobs Applied.' })
+     return res.status(404).json('appliedJobs', { isAppliedJob: false, message: 'No jobs applied.' });
+};
 
-
-}
 
 export const logout = (req, res) => {
      req.session.destroy((err) => {
