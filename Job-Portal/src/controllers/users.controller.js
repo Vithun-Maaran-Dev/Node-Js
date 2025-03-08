@@ -32,7 +32,8 @@ export const login = (req, res) => {
 }
 
 export const register = (req, res) => {
-     const isAdded = registerUser(req.body);
+
+     const isAdded = registerUser(req.body, req.file ? req.file : "");
 
      if (!isAdded) {
           return res.status(400).render('register', { isError: true, errorMessages: ['Something went wrong while Registering. Try after sometime'] });
@@ -40,25 +41,28 @@ export const register = (req, res) => {
      return res.status(200).redirect(`login`)
 }
 
-// export const applyJob = (req, res) => {
-//      const jobId = parseInt(req.params.jobId);
-//      if (req.session.role === 'J') {
-//           let appliedJobs = []
-//           const jobData = addJob(parseInt(req.session._id), jobId);
-
-//           if (jobData.success) {
-//                jobData.appliedJobIds.forEach(appliedJobId => {
-//                     let job = getJob(appliedJobId.JobId) 
+export const applyJob = (req, res) => {
+     const jobId = parseInt(req.params.jobId);
+     const userId = parseInt(req.session._id);
 
 
-//                })
-//           }
-//           return res.status(200).render('appliedJob', { appliedJob: appliedJobs })
-//      }
-//      else {
-//           return res.status(200).render('job', { isJob: false, message: 'Something went wrong while appling the Job. Please try after some time' })
-//      }
-// }
+     // if (req.session.role === 'J') {
+     //      let appliedJobs = []
+     //      const jobData = addJob(parseInt(req.session._id), jobId);
+
+     //      if (jobData.success) {
+     //           jobData.appliedJobIds.forEach(appliedJobId => {
+     //                let job = getJob(appliedJobId.JobId)
+
+
+     //           })
+     //      }
+     //      return res.status(200).render('appliedJob', { appliedJob: appliedJobs })
+     // }
+     // else {
+     //      return res.status(200).render('job', { isJob: false, message: 'Something went wrong while appling the Job. Please try after some time' })
+     // }
+}
 
 
 export const appliedJobView = (req, res) => {

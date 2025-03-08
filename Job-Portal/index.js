@@ -3,10 +3,10 @@ import path from "path"
 import ejsLayout from "express-ejs-layouts"
 import session from "express-session";
 
-
 //import controller
-import { loginView, registerView, login, register, appliedJobView, logout } from "./src/controllers/users.controller.js";
+import { loginView, registerView, login, register, appliedJobView, logout, applyJob } from "./src/controllers/users.controller.js";
 import { validateUser } from "./src/middleware/users.middleware.js";
+import { upload } from "./src/middleware/uploadResume.middleware.js";
 import { adminDashboardView } from "./src/controllers/admin.controller.js";
 import { adminAuth, userAuth } from "./src/middleware/auth.middleware.js";
 import { jobsView, jobView } from "./src/controllers/jobs.controller.js";
@@ -19,8 +19,9 @@ server.set('views', path.resolve(`src`, `views`))
 server.use(ejsLayout);
 server.use(express.static('public'));
 
-server.use(express.urlencoded({ extended: true }));
+
 server.use(express.json())
+server.use(express.urlencoded({ extended: true }));
 
 server.use(session({
      secret: `SearchJobNest`,
@@ -48,7 +49,7 @@ server.get(`/register`, registerView);
 
 //login and register post func
 server.post(`/login`, login)
-server.post(`/register`, validateUser, register)
+server.post(`/register`, upload.single("resume"), validateUser, register)
 
 //logout
 server.get(`/logout`, logout);
@@ -58,7 +59,7 @@ server.get(`/jobs`, jobsView)
 server.get('/jobs/:id', jobView)
 
 //user routes
-// server.get('/apply/:jobId', userAuth, applyJob)
+server.get('/apply/:jobId', userAuth, applyJob)
 server.get('/appliedJob', userAuth, appliedJobView)
 
 

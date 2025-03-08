@@ -22,16 +22,11 @@ let users = [
      }
 ]
 
-let appliedJobs = [
+export let appliedJobs = [
      {
           userId: 2,
           appliedjob: [
                {
-                    JobId: 1,
-                    appliedDate: '27/01/2000',
-                    status: 'A'
-               }
-               , {
                     JobId: 2,
                     appliedDate: '28/01/2000',
                     status: 'R'
@@ -40,20 +35,37 @@ let appliedJobs = [
      }
 ]
 
-export const registerUser = (reqData) => {
+export const registerUser = (reqData, reqFile) => {
      try {
           const { username, email, password, role } = reqData;
+          let resume = "";
 
           if (reqData) {
-               const userData = {
-                    _id: users.length + 1,
-                    username: username,
-                    email: email,
-                    password: password,
-                    role: role,
-                    appliedJob: []
+               let userData = {};
+               if (role === 'J') {
+                    resume = reqFile.filename;
+                    userData = {
+                         _id: users.length + 1,
+                         username: username,
+                         email: email,
+                         password: password,
+                         role: role,
+                         appliedJob: [],
+                         resume: resume
+                    }
                }
+               else {
+                    userData = {
+                         _id: users.length + 1,
+                         username: username,
+                         email: email,
+                         password: password,
+                         role: role,
+                    }
+               }
+
                users.push(userData);
+
                return true;
           }
           else {

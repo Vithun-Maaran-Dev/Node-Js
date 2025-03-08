@@ -39,7 +39,7 @@
                 </h6>
                 <div>
                     <% job.skills.forEach(skill => { %>
-                        <span class="badge bg-success me-1"><%= skill %></span>
+                        <span class="badge bg-warning me-1"><%= skill %></span>
                     <% }) %>
                 </div>
 
@@ -52,7 +52,11 @@
 
                 <div class="mt-3">
                     <% if (session.role?.toUpperCase() === `J` || !session.role ) { %>
-                      <a href="/apply/<%= job.id %>" class="btn btn-success btn-sm">Apply Now</a>
+                        <% if (isApplied) { %>
+                            <span class="bg-success px-3 py-1 rounded ">Applied</span>
+                        <% } else { %>
+                            <a href="/apply/<%= job.id %>" class="btn btn-warning btn-sm">Apply Now</a>
+                        <% } %>
                     <% } %>
                     <a href="/jobs" class="btn btn-outline-secondary btn-sm">Back to Jobs</a>
                 </div>

@@ -14,7 +14,7 @@
             <img src="/image/JobNest_Icon.png"  alt="icon" class="img-fluid rounded " />
             <h3 class="text-center mb-3">Sign Up</h3>
 
-            <form action="/register" method="post">
+            <form action="/register" method="post" enctype="multipart/form-data">
                <div class="mb-3">
                     <label for="email" class="form-label">User Name</label>
                     <input type="text" class="form-control" id="username" name="username" placeholder="Enter your Name" >
@@ -36,14 +36,20 @@
                     <input type="password" class="form-control" id="conpassword" name="conpassword"  placeholder="Enter your confrim password" >
                 </div>
 
-                 <div class="mb-3">
-                    <label for="role">Select Role</label>
-                    <select class="form-select" id="role" name="role" >
-                        <option value=""></option>
-                        <option value="J">Job Seeker</option>
-                        <option value="R">Recuriter</option>
-                    </select>
+                   <div class="mb-3">
+                        <label for="role">Select Role</label>
+                        <select class="form-select" id="role" name="role" onchange="toggleFileInput()">
+                            <option value="">-- Select --</option>
+                            <option value="J">Job Seeker</option>
+                            <option value="R">Recruiter</option>
+                        </select>
+                    </div>
+
+                 <div class="mb-3" id="fileInputContainer" style="display: none;">
+                    <label for="formFile" class="form-label">Upload Resume</label>
+                    <input class="form-control" type="file" id="resume" name="resume">
                 </div>
+
 
                 <!-- Register Button -->
                 <button type="submit" class="btn btn-warning w-100">Register</button>

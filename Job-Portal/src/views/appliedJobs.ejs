@@ -4,9 +4,10 @@
             <a href="/jobs" class="btn btn-primary btn-sm">Back to Jobs</a>
         </div>
     <% } else { %>
-        <div class="container mt-4">
+        <div class="container-fluid mt-4 " >
                 <h2 class="mb-3">Applied Job Listings</h2>
-                <table class="table table-bordered table-striped">
+                <div style="width: 100%; overflow: auto;">
+                       <table class="table table-bordered table-striped " >
                     <thead class="table-dark">
                         <tr>
                             <th>Job ID</th>
@@ -35,5 +36,7 @@
                         <% }) %>
                     </tbody>
                 </table>
+                </div>
+             
         </div>
     <% } %>
