@@ -59,7 +59,7 @@ server.get(`/jobs`, jobsView)
 server.get('/jobs/:id', jobView)
 
 //user routes
-server.get('/apply/:jobId', userAuth, applyJob)
+server.post('/apply', userAuth, applyJob);
 server.get('/appliedJob', userAuth, appliedJobView)
 
 

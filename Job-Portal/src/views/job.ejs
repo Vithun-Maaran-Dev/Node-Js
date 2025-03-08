@@ -55,7 +55,10 @@
                         <% if (isApplied) { %>
                             <span class="bg-success px-3 py-1 rounded ">Applied</span>
                         <% } else { %>
-                            <a href="/apply/<%= job.id %>" class="btn btn-warning btn-sm">Apply Now</a>
+                            <form action="/apply" method="POST" style="display: inline-block;">
+                                <input type="hidden" id= "jobId" name="jobId" value="<%= job.id %>">
+                                <button type="submit" class="btn btn-warning btn-sm">Apply Now</button>
+                            </form>
                         <% } %>
                     <% } %>
                     <a href="/jobs" class="btn btn-outline-secondary btn-sm">Back to Jobs</a>

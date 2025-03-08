@@ -42,7 +42,7 @@ export const register = (req, res) => {
 }
 
 export const applyJob = (req, res) => {
-     const jobId = parseInt(req.params.jobId);
+     const jobId = parseInt(req.body.jobId);
      const userId = parseInt(req.session._id);
 
      if (req.session.role === 'J') {
@@ -109,7 +109,7 @@ export const appliedJobView = (req, res) => {
           return res.status(200).render('appliedJobs', { isAppliedJob: true, appliedJobs: jobs });
      }
 
-     return res.status(404).json('appliedJobs', { isAppliedJob: false, message: 'No jobs applied.' });
+     return res.status(404).render('appliedJobs', { isAppliedJob: false, message: 'No jobs applied.' });
 };
 
 
