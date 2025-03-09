@@ -80,8 +80,6 @@ export const applyJob = (req, res) => {
      }
 };
 
-
-
 export const appliedJobView = (req, res) => {
      const userId = parseInt(req.session._id);
      const appliedJobsByUser = appliedJobIdByUser(userId);
@@ -111,7 +109,6 @@ export const appliedJobView = (req, res) => {
 
      return res.status(404).render('appliedJobs', { isAppliedJob: false, message: 'No jobs applied.' });
 };
-
 
 export const logout = (req, res) => {
      req.session.destroy((err) => {
