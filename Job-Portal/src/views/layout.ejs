@@ -12,7 +12,17 @@
           * {
                font-family: 'Poppins', sans-serif;
           }
+        .user-card {
+            max-width: 500px;
+            margin: auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+        h2 {
+            color: #007bff;
+        }
      </style>
+     
 
 </head>
 <body>
@@ -47,13 +57,13 @@
                                                   <li><a class="dropdown-item" href="#">Jobs Posted</a></li>
                                                   <li><a class="dropdown-item" href="#">Post a Job</a></li>
                                                   <li><hr class="dropdown-divider"></li>
-                                                  <li><a class="dropdown-item" href="#">DashBoard</a></li>
+                                                  <li><a class="dropdown-item" href="/recuriter/myprofile">My Account</a></li>
                                              </ul>
                                         <% } else  if (session.role?.toUpperCase()=== `J`){%>
                                              <ul class="dropdown-menu">
                                                   <li><a class="dropdown-item" href="/appliedJob">Jobs Applied</a></li>
                                                   <li><hr class="dropdown-divider"></li>
-                                                  <li><a class="dropdown-item" href="#">DashBoard</a></li>
+                                                  <li><a class="dropdown-item" href="/user/myprofile">My Account</a></li>
                                              </ul>
                                         <% }%>
                                    </li>

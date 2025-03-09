@@ -1,0 +1,26 @@
+ 
+<% if (profileDetail) { %>
+      <div class="container mt-5">
+        <div class="user-card p-4 text-center">
+            <h2>My Profile</h2>
+            <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>ID:</strong> <span id="userId"><%= profileDetail._id %></span></li>
+                    <li class="list-group-item"><strong>Username:</strong> <span id="username"><%= profileDetail.username %></span></li>
+                    <li class="list-group-item"><strong>Email:</strong> <span id="email"></span><%= profileDetail.email  %></li>
+                    <% if (profileDetail.role === 'J') { %>
+                          <li class="list-group-item"><strong>Role:</strong> <span id="role"></span>Job Seeker</li>
+                    <%} else if(profileDetail.role === 'R') {%>
+                         <li class="list-group-item"><strong>Role:</strong> <span id="role"></span>Recuriter</li>
+                    <%} else if(profileDetail.role === 'Admin') {%>
+                         <li class="list-group-item"><strong>Role:</strong> <span id="role"></span>Admin</li>
+                    <%}%>
+                    <% if (session.role === 'J') { %>
+                         <li class="list-group-item">
+                              <strong>Resume:</strong> 
+                              <a href="/ResumesCollection/<%= profileDetail.resume  %>" id="resume" target="_blank"><%= profileDetail.resume  %></a>
+                         </li>    
+                    <% } %>
+            </ul>
+        </div>
+    </div>
+<% } %>

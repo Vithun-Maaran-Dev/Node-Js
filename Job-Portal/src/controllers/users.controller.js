@@ -1,5 +1,5 @@
 import { addApplicant, getAllJobs, getJob } from "../models/jobs.model.js";
-import { registerUser, loginUser, appliedJobIdByUser, addJob } from "../models/users.model.js";
+import { registerUser, loginUser, appliedJobIdByUser, addJob, getProfileDetails } from "../models/users.model.js";
 
 
 export const loginView = (req, res) => {
@@ -109,6 +109,16 @@ export const appliedJobView = (req, res) => {
 
      return res.status(404).render('appliedJobs', { isAppliedJob: false, message: 'No jobs applied.' });
 };
+
+export const myProfile = (req, res) => {
+
+     const userId = parseInt(req.session._id)
+     const profileDetail = getProfileDetails(userId);
+     if (profileDetail)
+          return res.status(200).render('myProfile', { profileDetail: profileDetail })
+
+     return res.redirect('login')
+}
 
 export const logout = (req, res) => {
      req.session.destroy((err) => {

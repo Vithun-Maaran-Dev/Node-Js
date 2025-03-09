@@ -4,11 +4,11 @@ import ejsLayout from "express-ejs-layouts"
 import session from "express-session";
 
 //import controller
-import { loginView, registerView, login, register, appliedJobView, logout, applyJob } from "./src/controllers/users.controller.js";
+import { loginView, registerView, login, register, appliedJobView, logout, applyJob, myProfile } from "./src/controllers/users.controller.js";
 import { validateUser } from "./src/middleware/users.middleware.js";
 import { upload } from "./src/middleware/uploadResume.middleware.js";
 import { adminDashboardView } from "./src/controllers/admin.controller.js";
-import { adminAuth, userAuth } from "./src/middleware/auth.middleware.js";
+import { adminAuth, userAuth, recuriterAuth } from "./src/middleware/auth.middleware.js";
 import { jobsView, jobView } from "./src/controllers/jobs.controller.js";
 
 //creating server
@@ -61,9 +61,11 @@ server.get('/jobs/:id', jobView)
 //user routes
 server.post('/apply', userAuth, applyJob);
 server.get('/appliedJob', userAuth, appliedJobView)
+server.get('/user/myprofile', userAuth, myProfile)
 
 
 //recuriter routes
+server.get('/recuriter/myprofile', recuriterAuth, myProfile)
 
 
 //admin routes

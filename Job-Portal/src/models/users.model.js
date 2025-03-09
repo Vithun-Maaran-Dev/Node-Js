@@ -1,17 +1,18 @@
 let users = [
      {
           _id: 1,
-          username: `Vithun Maaran`,
-          email: `a.vithunmaaran@gmail.com`,
-          password: `Vithunmaaran@2000#`,
+          username: `Admin`,
+          email: `admin@gmail.com`,
+          password: `Admin@2000#`,
           role: `Admin`,
      },
      {
           _id: 2,
-          username: `Joe`,
-          email: `Joe@gmail.com`,
-          password: `Joe@2000#`,
+          username: `Vithun Maaran`,
+          email: `a.vithunmaaran@gmail.com`,
+          password: `Vithun@2000#`,
           role: `J`,
+          resume: "VITHUN-MAARAN-Resume.pdf"
      },
      {
           _id: 3,
@@ -50,7 +51,6 @@ export const registerUser = (reqData, reqFile) => {
                          email: email,
                          password: password,
                          role: role,
-                         appliedJob: [],
                          resume: resume
                     }
                }
@@ -120,4 +120,13 @@ export const addJob = (userId, JobId) => {
           return { success: true, appliedJobIds: newUser.appliedjob };
      }
      // return { success: false, appliedJobIds: [] }
+}
+
+export const getProfileDetails = (userId) => {
+     const profileDetails = users.find((user => user._id === userId));
+
+     if (profileDetails) {
+          return profileDetails;
+     }
+     return {};
 }
