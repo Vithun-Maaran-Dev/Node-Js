@@ -1,4 +1,4 @@
-let users = [
+export let users = [
      {
           _id: 1,
           username: `Admin`,
@@ -143,5 +143,8 @@ export const resumeUpdate = (userId, reqNewResume) => {
      }
 }
 
+export const getAllUsers = () => {
+     return users;
+}
 
 

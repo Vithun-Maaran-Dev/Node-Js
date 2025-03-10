@@ -30,7 +30,15 @@
                                 <td><%= job.type %></td>
                                 <td><%= job.salary %></td>
                                 <td><%= job.posted_date %></td>
-                                <td><a href='jos/applicants/<%=job.id %>' class=""><%= job.applicant_id.length %></a></td>
+                                <td>
+                                    <% if (job.applicant_id.length > 0) { %>
+                                        <a href='jobs/applicants/<%=job.id %>' style="text-decoration: none;" >
+                                            <%= job.applicant_id.length %>
+                                        </a>
+                                    <% } else {%>
+                                         <%= job.applicant_id.length %>
+                                    <% } %>
+                                </td>
                         </tr>
                     <% }) %>
                 </tbody>

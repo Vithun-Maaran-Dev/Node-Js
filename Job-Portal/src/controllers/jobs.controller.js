@@ -1,4 +1,4 @@
-import { getAllJobs, getJob } from "../models/jobs.model.js";
+import { getAllJobs, getApplicant, getJob } from "../models/jobs.model.js";
 import { appliedJobs } from "../models/users.model.js";
 
 
@@ -32,7 +32,21 @@ export const jobView = (req, res) => {
 
 }
 
-export const getApplicantView = () => {
+export const getApplicantsView = (req, res) => {
+     const jobId = parseInt(req.params.jobid);
+
+     const job = getJob(jobId);
+     if (!job) {
+          return res.status(404).render('appliedApplicants', { isFound: false, message: 'Job not found.' })
+     }
+     const users = getApplicant(job.applicant_id);
+
+     if (users.success) {
+          return res.status(200).render('appliedApplicants', { isFound: true, users: users.appliedApplicants })
+     }
+     else {
+          return res.status(404).render('appliedApplicants', { isFound: false, message: 'No Applicants applied for this job.' })
+     }
 
 }
 

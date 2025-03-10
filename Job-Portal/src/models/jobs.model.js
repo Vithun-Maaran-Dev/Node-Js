@@ -1,3 +1,5 @@
+import { getAllUsers } from "./users.model.js";
+
 let jobs = [
      {
           id: 1,
@@ -147,4 +149,23 @@ export const addApplicant = (userId, jobId) => {
      else {
           return false;
      }
+}
+
+export const getApplicant = (applicantsId) => {
+
+     let appliedApplicants = [];
+
+     let users = getAllUsers();
+
+     applicantsId.forEach(applicantId => {
+          appliedApplicants.push(users.find(user => user._id === applicantId))
+     })
+
+     if (appliedApplicants.length > 0) {
+          return { success: true, appliedApplicants: appliedApplicants }
+     }
+     else {
+          return { success: false, appliedApplicants: [] }
+     }
+
 }

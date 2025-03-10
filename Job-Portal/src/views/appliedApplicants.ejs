@@ -1,0 +1,36 @@
+<% if (!isFound) { %>
+    <div class="alert alert-danger text-center" role="alert">
+            <p class="mb-2"><%= message%></p>
+            <a href="/recuriter/postjob" class="btn btn-primary btn-sm">Post a job </a>
+        </div>
+<% } else {%>
+    <div class="container-fluid  mt-5">
+        <h2 class="text-center mb-4">Job Listing</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>UserName</th>
+                        <th>Email</th>
+                        <th>Resume</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% users.forEach(user => { %>
+                        <tr>
+                                <td> <%= user.username %></td>
+                                <td><%= user.email %></td>
+                                <td>
+                                   <a href="/ResumesCollection/<%= user.resume %>" id="resume-link" target="_blank">
+                                             <%= user.resume %>
+                                   </a>
+                                   </td>
+                               <td> <span>Accept</span> <span>Reject</span></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+<%}%>
