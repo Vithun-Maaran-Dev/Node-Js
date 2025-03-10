@@ -139,6 +139,8 @@ export const resumeUpdate = (userId, reqNewResume) => {
           return { isUpdated: true, user: user }
      }
      else {
-          return { isUpdated: false }
+          return { isUpdated: false, user: user }
      }
 }
+
+

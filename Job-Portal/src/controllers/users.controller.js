@@ -127,10 +127,10 @@ export const updateResume = (req, res) => {
      const userDetail = resumeUpdate(userId, reqNewResume);
 
      if (userDetail.isUpdated) {
-          return res.status(200).render({ isError: false, errMess: ``, profileDetail: userDetail })
+          return res.status(200).render({ isError: false, errMess: ``, profileDetail: userDetail.user })
      }
      else {
-          return res.status(400).render({ isError: true, errMess: `Something went wrong uploading your resume.`, profileDetail: userDetail })
+          return res.status(400).render({ isError: true, errMess: `Something went wrong uploading your resume.`, profileDetail: userDetail.user })
      }
 }
 
