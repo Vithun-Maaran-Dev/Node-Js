@@ -17,7 +17,6 @@ export const deleteExistingPdf = (req, res, next) => {
 
      const { old_resumeName } = req.body;
      const filePath = path.resolve('public', 'ResumesCollection', `${old_resumeName}`);
-     console.log(filePath)
      fs.unlink(filePath, (err) => {
           if (err) {
                return res.status(400).render('myprofile', { isError: true, errMess: `Something went wrong.`, profileDetail: profileDetail })
