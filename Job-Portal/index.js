@@ -64,7 +64,7 @@ server.get('/jobs/:id', jobView)
 server.post('/apply', userAuth, applyJob);
 server.get('/appliedJob', userAuth, appliedJobView)
 server.get('/user/myprofile', userAuth, myProfile)
-server.post('/update/resume', upload.single("newresume"), userAuth, deleteExistingPdf, updateResume);
+server.post('/update/resume', userAuth, upload.single("newresume"), deleteExistingPdf, updateResume);
 
 //recuriter routes
 server.get('/recuriter/myprofile', myProfile)
