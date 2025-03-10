@@ -1,0 +1,40 @@
+<% if (!found) { %>
+    <div class="alert alert-danger text-center" role="alert">
+            <p class="mb-2"><%= message%></p>
+            <a href="/recuriter/postjob" class="btn btn-primary btn-sm">Post a job</a>
+        </div>
+<% } else {%>
+    <div class="container-fluid  mt-5">
+        <h2 class="text-center mb-4">Job Listing</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Company</th>
+                        <th>Location</th>
+                        <th>Type</th>
+                        <th>Salary</th>
+                        <th>Posted Date</th>
+                        <th>Applicant Applied</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% jobs.forEach(job => { %>
+                        <tr>
+                                <td> <a href="/jobs/<%=job.id %>" class="btn btn-sm btn-primary"><%= job.id %></a></td>
+                                <td><%= job.title %></td>
+                                <td><%= job.company %></td>
+                                <td><%= job.location %></td>
+                                <td><%= job.type %></td>
+                                <td><%= job.salary %></td>
+                                <td><%= job.posted_date %></td>
+                                <td><%= job.applicant_id.length %></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+<%}%>

@@ -33,7 +33,7 @@ let jobs = [
                "Database design and optimization experience"
           ],
           "applicant_id": [],
-          "recuriter_id": 5
+          "recuriter_id": 3
      },
      {
           "id": 3,
@@ -51,7 +51,7 @@ let jobs = [
                "Ability to process and analyze large datasets"
           ],
           "applicant_id": [],
-          "recuriter_id": 2
+          "recuriter_id": 3
      },
      {
           "id": 4,
@@ -69,7 +69,7 @@ let jobs = [
                "Expertise in automation tools"
           ],
           "applicant_id": [],
-          "recuriter_id": 7
+          "recuriter_id": 3
      },
      {
           "id": 5,
@@ -87,7 +87,7 @@ let jobs = [
                "Good knowledge of API integration"
           ],
           "applicant_id": [],
-          "recuriter_id": 4
+          "recuriter_id": 3
      },
      {
           "id": 6,
@@ -105,7 +105,7 @@ let jobs = [
                "Ability to analyze security incidents and mitigate risks"
           ],
           "applicant_id": [],
-          "recuriter_id": 6
+          "recuriter_id": 3
      },
      {
           id: 7,
