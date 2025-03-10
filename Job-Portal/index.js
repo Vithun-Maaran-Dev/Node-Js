@@ -10,7 +10,7 @@ import { validateUser } from "./src/middleware/users.middleware.js";
 import { upload } from "./src/middleware/uploadResume.middleware.js";
 import { adminDashboardView } from "./src/controllers/admin.controller.js";
 import { adminAuth, userAuth, recuriterAuth } from "./src/middleware/auth.middleware.js";
-import { jobsView, jobView } from "./src/controllers/jobs.controller.js";
+import { jobsView, jobView, getApplicantView } from "./src/controllers/jobs.controller.js";
 import { deleteExistingPdf } from "./src/middleware/deletePdfFile.middleware.js";
 import { getPosedJobsView, getPostJobView } from "./src/controllers/recuriter.controller.js";
 
@@ -71,6 +71,7 @@ server.post('/update/resume', userAuth, upload.single("newresume"), deleteExisti
 server.get('/recuriter/myprofile', recuriterAuth, myProfile)
 server.get('/recuriter/jobposted', recuriterAuth, getPosedJobsView)
 server.get('/recuriter/postjob', recuriterAuth, getPostJobView)
+server.get('/jos/applicants/:jobid', recuriterAuth, getApplicantView)
 
 
 //admin routes

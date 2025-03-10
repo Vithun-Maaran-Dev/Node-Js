@@ -1,7 +1,7 @@
 <% if (!found) { %>
     <div class="alert alert-danger text-center" role="alert">
             <p class="mb-2"><%= message%></p>
-            <a href="/recuriter/postjob" class="btn btn-primary btn-sm">Post a job</a>
+            <a href="/recuriter/postjob" class="btn btn-primary btn-sm">Post a job </a>
         </div>
 <% } else {%>
     <div class="container-fluid  mt-5">
@@ -30,7 +30,7 @@
                                 <td><%= job.type %></td>
                                 <td><%= job.salary %></td>
                                 <td><%= job.posted_date %></td>
-                                <td><%= job.applicant_id.length %></td>
+                                <td><a href='jos/applicants/<%=job.id %>' class=""><%= job.applicant_id.length %></a></td>
                         </tr>
                     <% }) %>
                 </tbody>

@@ -32,4 +32,9 @@ export const jobView = (req, res) => {
 
 }
 
+export const getApplicantView = () => {
+
+}
+
+
 
