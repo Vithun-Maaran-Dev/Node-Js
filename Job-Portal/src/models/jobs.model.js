@@ -53,7 +53,7 @@ let jobs = [
                "Ability to process and analyze large datasets"
           ],
           "applicant_id": [],
-          "recuriter_id": 3
+          "recuriter_id": 2
      },
      {
           "id": 4,
@@ -135,7 +135,16 @@ export const getAllJobs = () => {
 }
 
 export const getJob = (jobId) => {
+
      const job = jobs.find(job => job.id === jobId)
+     return job;
+}
+
+export const getJobWithRecuriter = (jobId, recuriterId) => {
+     let job = {};
+     if (recuriterId !== "") {
+          job = jobs.find(job => job.id === jobId && job.recuriter_id === parseInt(recuriterId))
+     }
      return job;
 }
 
