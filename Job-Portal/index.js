@@ -3,13 +3,15 @@ import path from "path"
 import ejsLayout from "express-ejs-layouts"
 import session from "express-session";
 
+
 //import controller
-import { loginView, registerView, login, register, appliedJobView, logout, applyJob, myProfile } from "./src/controllers/users.controller.js";
+import { loginView, registerView, login, register, appliedJobView, logout, applyJob, myProfile, updateResume } from "./src/controllers/users.controller.js";
 import { validateUser } from "./src/middleware/users.middleware.js";
 import { upload } from "./src/middleware/uploadResume.middleware.js";
 import { adminDashboardView } from "./src/controllers/admin.controller.js";
-import { adminAuth, userAuth, recuriterAuth } from "./src/middleware/auth.middleware.js";
+import { adminAuth, userAuth } from "./src/middleware/auth.middleware.js";
 import { jobsView, jobView } from "./src/controllers/jobs.controller.js";
+import { deleteExistingPdf } from "./src/middleware/deletePdfFile.middleware.js";
 
 //creating server
 const server = express();
@@ -19,9 +21,9 @@ server.set('views', path.resolve(`src`, `views`))
 server.use(ejsLayout);
 server.use(express.static('public'));
 
-
 server.use(express.json())
 server.use(express.urlencoded({ extended: true }));
+
 
 server.use(session({
      secret: `SearchJobNest`,
@@ -62,10 +64,10 @@ server.get('/jobs/:id', jobView)
 server.post('/apply', userAuth, applyJob);
 server.get('/appliedJob', userAuth, appliedJobView)
 server.get('/user/myprofile', userAuth, myProfile)
-
+server.post('/update/resume', upload.single("newresume"), userAuth, deleteExistingPdf, updateResume);
 
 //recuriter routes
-server.get('/recuriter/myprofile', recuriterAuth, myProfile)
+server.get('/recuriter/myprofile', myProfile)
 
 
 //admin routes

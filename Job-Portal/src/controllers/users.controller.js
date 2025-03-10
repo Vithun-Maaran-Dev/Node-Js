@@ -1,5 +1,5 @@
 import { addApplicant, getAllJobs, getJob } from "../models/jobs.model.js";
-import { registerUser, loginUser, appliedJobIdByUser, addJob, getProfileDetails } from "../models/users.model.js";
+import { registerUser, loginUser, appliedJobIdByUser, addJob, getProfileDetails, resumeUpdate } from "../models/users.model.js";
 
 
 export const loginView = (req, res) => {
@@ -115,9 +115,23 @@ export const myProfile = (req, res) => {
      const userId = parseInt(req.session._id)
      const profileDetail = getProfileDetails(userId);
      if (profileDetail)
-          return res.status(200).render('myProfile', { profileDetail: profileDetail })
+          return res.status(200).render('myProfile', { isError: false, errMess: ``, profileDetail: profileDetail })
 
      return res.redirect('login')
+}
+
+export const updateResume = (req, res) => {
+     const userId = parseInt(req.session._id)
+     const reqNewResume = req.file;
+
+     const userDetail = resumeUpdate(userId, reqNewResume);
+
+     if (userDetail.isUpdated) {
+          return res.status(200).render({ isError: false, errMess: ``, profileDetail: userDetail })
+     }
+     else {
+          return res.status(400).render({ isError: true, errMess: `Something went wrong uploading your resume.`, profileDetail: userDetail })
+     }
 }
 
 export const logout = (req, res) => {

@@ -130,3 +130,15 @@ export const getProfileDetails = (userId) => {
      }
      return {};
 }
+
+export const resumeUpdate = (userId, reqNewResume) => {
+     let user = users.find((user => user._id === userId));
+
+     if (user) {
+          user.resume = reqNewResume.filename;
+          return { isUpdated: true, user: user }
+     }
+     else {
+          return { isUpdated: false }
+     }
+}
