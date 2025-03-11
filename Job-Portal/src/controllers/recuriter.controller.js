@@ -44,7 +44,6 @@ export const applicantStatus = (req, res) => {
      const data = updateApplicantStatus(parseInt(userId), parseInt(jobId), statusType)
 
      if (data) {
-
           const jobData = getJobWithRecuriter(jobId, recuriterId);
           if (!jobData) {
                return res.status(404).render('appliedApplicants', { isFound: false, message: 'Something went Wrong' })
