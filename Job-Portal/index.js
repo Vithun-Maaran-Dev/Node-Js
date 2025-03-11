@@ -12,7 +12,7 @@ import { adminDashboardView } from "./src/controllers/admin.controller.js";
 import { adminAuth, userAuth, recuriterAuth } from "./src/middleware/auth.middleware.js";
 import { jobsView, jobView } from "./src/controllers/jobs.controller.js";
 import { deleteExistingPdf } from "./src/middleware/deletePdfFile.middleware.js";
-import { getPosedJobsView, getPostJobView, getApplicantsView } from "./src/controllers/recuriter.controller.js";
+import { getPosedJobsView, getPostJobView, getApplicantsView, applicantStatus } from "./src/controllers/recuriter.controller.js";
 
 //creating server
 const server = express();
@@ -72,7 +72,7 @@ server.get('/recuriter/myprofile', recuriterAuth, myProfile)
 server.get('/recuriter/jobposted', recuriterAuth, getPosedJobsView)
 server.get('/recuriter/postjob', recuriterAuth, getPostJobView)
 server.get('/recuriter/jobs/applicants/:jobid', recuriterAuth, getApplicantsView)
-
+server.post('/recuriter/applicant/action', recuriterAuth, applicantStatus)
 
 
 //admin routes

@@ -28,9 +28,9 @@ export let appliedJobs = [
           userId: 2,
           appliedjob: [
                {
-                    JobId: 2,
+                    JobId: 7,
                     appliedDate: '28/01/2000',
-                    status: 'R'
+                    status: 'W'
                }
           ]
      }

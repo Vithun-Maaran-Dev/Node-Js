@@ -5,7 +5,7 @@
         </div>
 <% } else {%>
     <div class="container-fluid  mt-5">
-        <h2 class="text-center mb-4">Applicants </h2>
+        <h2 class="text-center mb-4">Applicants for job Id : <%= jobId %></h2>
         <div class="table-responsive">
             <table class="table table-bordered table-striped">
                 <thead class="table-dark">
@@ -26,8 +26,28 @@
                                              <%= user.resume %>
                                    </a>
                                    </td>
-                               <td> 
-                                    <span>Accept</span> <span>Reject</span>
+                               <td > 
+                                    <% if(user.status === 'A') {%>
+                                         <span class="badge bg-success p-2">Accepted</span>
+                                    <% } else if(user.status === 'R') {%>
+                                        <span class="badge bg-danger p-2">Rejected</span>
+                                    <% } else {%>
+                                        <form method="post" action="/recuriter/applicant/action" id="appliedAction" style="display: inline-block;">
+                                                <input type="hidden" value="<%= jobId %>" id="jobId" name="jobId">
+                                                <input type="hidden" value="<%= user._id %>" id="userId" name="userId">
+                                                <input type="hidden" id="statusType" name="statusType" value="">
+
+                                                <!-- Accept Button -->
+                                                <button type="submit" class="btn btn-sm" onclick="setActionType('A')">
+                                                    <i class="fas fa-check me-2" style="color: green; font-size: 21px;"></i>
+                                                </button>
+                                                
+                                                <!-- Reject Button -->
+                                                <button type="submit" class="btn btn-sm" onclick="setActionType('R')">
+                                                    <i class="fas fa-times" style="color: red; font-size: 24px;"></i>
+                                                </button>
+                                        </form>
+                                    <% } %>
                                 </td>
                         </tr>
                     <% }) %>
@@ -36,3 +56,9 @@
         </div>
     </div>
 <%}%>
+
+<script>
+    function setActionType(type) {
+        document.getElementById('actionType').value = type;
+    }
+</script>
