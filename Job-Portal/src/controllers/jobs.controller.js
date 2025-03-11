@@ -1,4 +1,4 @@
-import { getAllJobs, getApplicant, getJob, getJobWithRecuriter } from "../models/jobs.model.js";
+import { getAllJobs, getJob } from "../models/jobs.model.js";
 import { appliedJobs } from "../models/users.model.js";
 
 
@@ -32,24 +32,6 @@ export const jobView = (req, res) => {
 
 }
 
-export const getApplicantsView = (req, res) => {
-     const jobId = parseInt(req.params.jobid);
-     const recuriterId = req.session._id;
-
-     const job = getJobWithRecuriter(jobId, recuriterId);
-     if (!job) {
-          return res.status(404).render('appliedApplicants', { isFound: false, message: 'Job not found.' })
-     }
-     const users = getApplicant(job.applicant_id);
-
-     if (users.success) {
-          return res.status(200).render('appliedApplicants', { isFound: true, users: users.appliedApplicants })
-     }
-     else {
-          return res.status(404).render('appliedApplicants', { isFound: false, message: 'No Applicants applied for this job.' })
-     }
-
-}
 
 
 
