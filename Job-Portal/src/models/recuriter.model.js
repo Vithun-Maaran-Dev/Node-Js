@@ -120,13 +120,13 @@ export const getupdateJob = (recuriterId, reqData) => {
                     applicant_id: job.applicant_id,
                     recuriter_id: job.recuriter_id
                }
-
                jobs[jobIndex] = updatedJob;
-
-               console.log(jobs);
-
                return { success: true }
           }
+          else {
+               return { success: false }
+          }
+
 
      }
      else {
