@@ -17,8 +17,6 @@ export const getPosedJobsView = (req, res) => {
 export const getPostJobView = (req, res) => {
      return res.status(200).render('postJob')
 }
-
-
 export const getApplicantsView = (req, res) => {
      const jobId = parseInt(req.params.jobid);
      const recuriterId = req.session._id;
@@ -36,16 +34,16 @@ export const getApplicantsView = (req, res) => {
           return res.status(404).render('appliedApplicants', { isFound: false, message: 'No Applicants applied for this job.' })
      }
 }
-
-
 export const applicantStatus = (req, res) => {
      const { userId, jobId, statusType } = req.body;
      const recuriterId = req.session._id;
+
      const data = updateApplicantStatus(parseInt(userId), parseInt(jobId), statusType)
 
      if (data) {
-          const jobData = getJobWithRecuriter(jobId, recuriterId);
-          if (!jobData) {
+          const job = getJobWithRecuriter(parseInt(jobId), recuriterId);
+
+          if (!job) {
                return res.status(404).render('appliedApplicants', { isFound: false, message: 'Something went Wrong' })
           }
           const users = getApplicant(job);
@@ -54,7 +52,7 @@ export const applicantStatus = (req, res) => {
                return res.status(200).render('appliedApplicants', { isFound: true, users: users.appliedApplicants, jobId: jobId })
           }
           else {
-               return res.status(404).render('appliedApplicants', { isFound: false, message: 'No such pplicant find. We are working on the issue' })
+               return res.status(404).render('appliedApplicants', { isFound: false, message: 'No such applicant find. We are working on the issue' })
           }
 
      }

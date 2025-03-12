@@ -56,15 +56,8 @@ export const updateApplicantStatus = (userId, jobId, statusType) => {
      const job = appliedJobs[userIndex].appliedjob.find(job => job.JobId === jobId)
      const jobIndex = appliedJobs[userIndex].appliedjob.findIndex(job => job.JobId === jobId);
 
-     console.log(userIndex);
-     console.log(job);
-     console.log(jobIndex);
-
-
      if (userIndex >= 0 && jobIndex >= 0) {
           appliedJobs[userIndex].appliedjob[jobIndex] = { ...job, status: statusType };
-
-          console.log(appliedJobs[0]);
 
           return true
      } else {
