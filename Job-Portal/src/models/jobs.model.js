@@ -1,6 +1,4 @@
-import { getAllUsers } from "./users.model.js";
-
-let jobs = [
+export let jobs = [
      {
           id: 1,
           title: "Software Engineer",

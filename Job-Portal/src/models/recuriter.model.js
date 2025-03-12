@@ -1,4 +1,4 @@
-import { getAllJobs } from "./jobs.model.js"
+import { getAllJobs, jobs } from "./jobs.model.js"
 import { appliedJobIdByUser, appliedJobs, getAllUsers } from "./users.model.js";
 
 export const getPostedJob = (recuriterId) => {
@@ -64,12 +64,11 @@ export const updateApplicantStatus = (userId, jobId, statusType) => {
 }
 
 export const addjob = (reqData, recuriterId) => {
-
      try {
           const { title, company, location, type, salary, posted_date, description, skills, requirements } = reqData;
 
           const newJob = {
-               "id": appliedJobs.length + 1,
+               "id": jobs.length + 1,
                "title": title,
                "company": company,
                "location": location,
@@ -83,10 +82,13 @@ export const addjob = (reqData, recuriterId) => {
                "recuriter_id": recuriterId
           }
 
-          appliedJobs.push(newJob);
+          jobs.push(newJob);
+
           return { success: true };
      }
      catch (err) {
+          console.log(err);
+
           return { success: false }
      }
 
