@@ -126,8 +126,6 @@ export const getupdateJob = (recuriterId, reqData) => {
           else {
                return { success: false }
           }
-
-
      }
      else {
           return { success: false }
