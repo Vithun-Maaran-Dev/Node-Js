@@ -1,5 +1,6 @@
 import { getJobWithRecuriter } from "../models/jobs.model.js";
 import { getApplicant, getPostedJob, updateApplicantStatus } from "../models/recuriter.model.js";
+import { addJob } from "../models/users.model.js";
 
 export const getPosedJobsView = (req, res) => {
      const recuriterId = parseInt(req.session._id);
@@ -62,4 +63,15 @@ export const applicantStatus = (req, res) => {
 
 }
 
+export const postJob = (req, res) => {
+     const recuriterId = parseInt(req.session._id)
+     const isPosted = addJob(req.body, recuriterId)
 
+     if (isPosted.success) {
+          const filteredJobs = getPostedJob(recuriterId);
+          return res.status(200).render('postedJobs', { found: true, jobs: filteredJobs.postedJobs })
+     }
+     else {
+          return res.status(400).render(`postJob`, { isError: true, errorMessages: ['Error adding new job. Try after sometime.'] });
+     }
+}

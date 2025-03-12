@@ -13,7 +13,6 @@ export const getPostedJob = (recuriterId) => {
           return { found: false }
      }
 }
-
 export const getApplicant = (job) => {
 
      let appliedApplicants = [];
@@ -47,8 +46,6 @@ export const getApplicant = (job) => {
      }
 
 }
-
-
 export const updateApplicantStatus = (userId, jobId, statusType) => {
 
      const userIndex = appliedJobs.findIndex(data => data.userId === userId);
@@ -66,3 +63,32 @@ export const updateApplicantStatus = (userId, jobId, statusType) => {
 
 }
 
+export const addjob = (reqData, recuriterId) => {
+
+     try {
+          const { title, company, location, type, salary, posted_date, description, skills, requirements } = reqData;
+
+          const newJob = {
+               "id": appliedJobs.length + 1,
+               "title": title,
+               "company": company,
+               "location": location,
+               "type": type,
+               "salary": salary,
+               "posted_date": posted_date,
+               "description": description,
+               "skills": skills.split(',').map(skill => skill.trim()),
+               "requirements": requirements.split('\n').map(req => req.trim()),
+               "applicant_id": [],
+               "recuriter_id": recuriterId
+          }
+
+          appliedJobs.push(newJob);
+          return { success: true };
+     }
+     catch (err) {
+          return { success: false }
+     }
+
+
+}

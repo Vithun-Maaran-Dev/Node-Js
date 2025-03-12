@@ -1,0 +1,77 @@
+<% if (isError) { %>
+    <div class="alert alert-danger" role="alert">
+        <ul> 
+            <% errorMessages.forEach( errorMessage =>{ %>
+                <li><%= errorMessage %></li>
+            <% }) %>
+        </ul>
+    </div>
+<%} %>
+
+<div class="container bg-light shadow-lg mt-4 p-3 rounded">
+    <form id="jobForm" method="post" action="/recuriter/addjob" >
+        <!-- Title -->
+        <div class="mb-3">
+            <label for="title" class="form-label">Job Title</label>
+            <input type="text" class="form-control " id="title" name="title" placeholder=" Write Job Title" required>
+        </div>
+
+        <!-- Company -->
+        <div class="mb-3">
+            <label for="company" class="form-label">Company</label>
+            <input type="text" class="form-control " id="company" name="company" placeholder="Write company name" required>
+        </div>
+
+        <!-- Location -->
+        <div class="mb-3">
+            <label for="location" class="form-label">Location</label>
+            <input type="text" class="form-control " id="location" name="location" placeholder="eg: Chennai, India" required>
+        </div>
+
+        <!-- Type -->
+        <div class="mb-3">
+            <label for="type" class="form-label">Job Type</label>
+            <select class="form-select" id="type" name="type" required>
+                <option value="Full-time">Full-time</option>
+                <option value="Part-time">Part-time</option>
+                <option value="Contract">Contract</option>
+                <option value="Remote">Remote</option>
+            </select>
+        </div>
+
+        <!-- Salary -->
+        <div class="mb-3">
+            <label for="salary" class="form-label">Salary</label>
+            <input type="text" class="form-control " id="salary" name="salary" placeholder="eg:$90,000 - $120,000">
+        </div>
+
+        <!-- Posted Date -->
+        <div class="mb-3">
+            <label for="posted_date" class="form-label">Posted Date</label>
+            <input type="date" class="form-control " id="posted_date" name="posted_date" required>
+        </div>
+
+        <!-- Description -->
+        <div class="mb-3">
+            <label for="description" class="form-label">Job Description</label>
+            <textarea class="form-control" id="description" name="description" rows="3" placeholder="Write job description" required></textarea>
+        </div>
+
+        <!-- Skills -->
+        <div class="mb-3">
+            <label for="skills" class="form-label">Skills</label>
+            <input type="text" class="form-control " id="skills" name="skills" placeholder="eg: React JS, HTML, CSS, JS, .Net C#" required>
+            <div class="form-text">Separate skills with commas.</div>
+        </div>
+
+        <!-- Requirements -->
+        <div class="mb-3">
+            <label for="requirements" class="form-label">Requirements</label>
+            <textarea class="form-control" id="requirements" name="requirements" rows="3" placeholder=" eg : 3+ years of experiance \n Experience with JavaScript, React, and Node.js \n Experience with c#"></textarea>
+            <div class="form-text">Separate each requirements with new line.</div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
