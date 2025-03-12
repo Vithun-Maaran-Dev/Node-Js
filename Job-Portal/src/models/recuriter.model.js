@@ -99,7 +99,6 @@ export const getupdateJob = (recuriterId, reqData) => {
 
      const { jobId, title, company, location, type, salary, posted_date, description, skills, requirements } = reqData;
 
-
      let job = {};
      if (recuriterId !== "") {
           job = jobs.find(job => job.id === parseInt(jobId) && job.recuriter_id === parseInt(recuriterId))
