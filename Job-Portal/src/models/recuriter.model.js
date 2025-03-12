@@ -94,3 +94,43 @@ export const addjob = (reqData, recuriterId) => {
 
 
 }
+
+export const getupdateJob = (recuriterId, reqData) => {
+
+     const { jobId, title, company, location, type, salary, posted_date, description, skills, requirements } = reqData;
+
+
+     let job = {};
+     if (recuriterId !== "") {
+          job = jobs.find(job => job.id === parseInt(jobId) && job.recuriter_id === parseInt(recuriterId))
+          const jobIndex = jobs.findIndex(job => job.id === parseInt(jobId) && job.recuriter_id === parseInt(recuriterId))
+
+          if (jobIndex >= 0) {
+               const updatedJob = {
+                    id: job.id,
+                    title: title,
+                    company: company,
+                    location: location,
+                    type: type,
+                    salary: salary,
+                    posted_date: posted_date,
+                    description: description,
+                    skills: skills.split(',').map(skill => skill.trim()),
+                    requirements: requirements.split('\n').map(req => req.trim()),
+                    applicant_id: job.applicant_id,
+                    recuriter_id: job.recuriter_id
+               }
+
+               jobs[jobIndex] = updatedJob;
+
+               console.log(jobs);
+
+               return { success: true }
+          }
+
+     }
+     else {
+          return { success: false }
+     }
+
+}

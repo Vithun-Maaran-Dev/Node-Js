@@ -12,7 +12,7 @@ import { adminDashboardView } from "./src/controllers/admin.controller.js";
 import { adminAuth, userAuth, recuriterAuth } from "./src/middleware/auth.middleware.js";
 import { jobsView, jobView } from "./src/controllers/jobs.controller.js";
 import { deleteExistingPdf } from "./src/middleware/deletePdfFile.middleware.js";
-import { getPosedJobsView, getPostJobView, getApplicantsView, applicantStatus, postJob } from "./src/controllers/recuriter.controller.js";
+import { getPosedJobsView, getPostJobView, getApplicantsView, applicantStatus, postJob, getUpdateJobView, updateJob } from "./src/controllers/recuriter.controller.js";
 import { validateJob } from "./src/middleware/recuriter.middleware.js";
 
 //creating server
@@ -71,10 +71,13 @@ server.post('/update/resume', userAuth, upload.single("newresume"), deleteExisti
 //recuriter routes
 server.get('/recuriter/myprofile', recuriterAuth, myProfile)
 server.get('/recuriter/jobposted', recuriterAuth, getPosedJobsView)
-server.get('/recuriter/postjob', recuriterAuth, getPostJobView)
 server.get('/recuriter/jobs/applicants/:jobid', recuriterAuth, getApplicantsView)
 server.post('/recuriter/applicant/action', recuriterAuth, applicantStatus)
+server.get('/recuriter/postjob', recuriterAuth, getPostJobView)
 server.post('/recuriter/addjob', recuriterAuth, validateJob, postJob)
+server.get('/recuriter/job/update/:jobId', recuriterAuth, getUpdateJobView)
+server.post('/recuriter/job/updatejob', recuriterAuth, validateJob, updateJob)
+
 
 //admin routes
 server.get(`/adminDashboard`, adminAuth, adminDashboardView)

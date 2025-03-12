@@ -17,7 +17,8 @@
                         <th>Type</th>
                         <th>Salary</th>
                         <th>Posted Date</th>
-                        <th>Applicant Applied</th>
+                        <th style="text-align: center;">Applicant <br />Applied</th>
+                        <th style="text-align: center;">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,7 +31,7 @@
                                 <td><%= job.type %></td>
                                 <td><%= job.salary %></td>
                                 <td><%= job.posted_date %></td>
-                                <td>
+                                <td style="text-align: center;">
                                     <% if (job.applicant_id.length > 0) { %>
                                         <a href='jobs/applicants/<%=job.id %>' style="text-decoration: none;" >
                                             <%= job.applicant_id.length %>
@@ -38,6 +39,15 @@
                                     <% } else {%>
                                          <%= job.applicant_id.length %>
                                     <% } %>
+                                </td>
+                                <td style="text-align: center;">
+                                    <a href="/recuriter/job/update/<%=job.id %>" class="text-primary mx-3 title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    
+                                    <a href="#" class="text-danger" title="Delete">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
                                 </td>
                         </tr>
                     <% }) %>
