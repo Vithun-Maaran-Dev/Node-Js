@@ -16,7 +16,7 @@ export const getPosedJobsView = (req, res) => {
 }
 
 export const getPostJobView = (req, res) => {
-     return res.status(200).render('postJob')
+     return res.status(200).render('postJob', { isError: false })
 }
 export const getApplicantsView = (req, res) => {
      const jobId = parseInt(req.params.jobid);
