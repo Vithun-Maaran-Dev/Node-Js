@@ -77,8 +77,9 @@ export const postJob = (req, res) => {
 }
 export const getUpdateJobView = (req, res) => {
      const jobId = parseInt(req.params.jobId);
+     const recuriterId = req.session._id;
 
-     const job = getJob(jobId);
+     const job = getJobWithRecuriter(jobId, recuriterId);
 
      if (job) {
           return res.status(200).render('jobForm', { isError: false, isPostView: false, jobData: job })
@@ -86,7 +87,6 @@ export const getUpdateJobView = (req, res) => {
      else {
           return res.status(404).render('jobForm', { isError: true, errorMessages: ['Error getting the job .Try after sometime or post a new job'], isPostView: true })
      }
-
 
 }
 

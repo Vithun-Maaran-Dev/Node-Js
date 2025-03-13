@@ -20,7 +20,22 @@ export let users = [
           email: `Sow@gmail.com`,
           password: `Sow@2000#`,
           role: `R`,
-     }
+     },
+     {
+          _id: 4,
+          username: `Bala`,
+          email: `bala@gmail.com`,
+          password: `Bala@2000#`,
+          role: `R`,
+     },
+     {
+          _id: 5,
+          username: `Vetri Maaran`,
+          email: `a.vetrimaaran@gmail.com`,
+          password: `Vetri@2000#`,
+          role: `J`,
+          resume: "vetri-maaran-resume.pdf"
+     },
 ]
 
 export let appliedJobs = [
@@ -29,6 +44,16 @@ export let appliedJobs = [
           appliedjob: [
                {
                     JobId: 7,
+                    appliedDate: '28/01/2000',
+                    status: 'W'
+               }
+          ]
+     },
+     {
+          userId: 5,
+          appliedjob: [
+               {
+                    JobId: 3,
                     appliedDate: '28/01/2000',
                     status: 'W'
                }

@@ -51,7 +51,7 @@ export let jobs = [
                "Ability to process and analyze large datasets"
           ],
           "applicant_id": [],
-          "recuriter_id": 2
+          "recuriter_id": 4
      },
      {
           "id": 4,
@@ -69,7 +69,7 @@ export let jobs = [
                "Expertise in automation tools"
           ],
           "applicant_id": [],
-          "recuriter_id": 3
+          "recuriter_id": 4
      },
      {
           "id": 5,
@@ -123,7 +123,7 @@ export let jobs = [
                "Strong problem-solving skills"
           ],
           applicant_id: [2],
-          recuriter_id: 3
+          recuriter_id: 4
      },
 
 ]
