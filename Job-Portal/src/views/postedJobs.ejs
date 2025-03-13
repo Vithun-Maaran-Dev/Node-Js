@@ -33,7 +33,7 @@
                                 <td><%= job.posted_date %></td>
                                 <td style="text-align: center;">
                                     <% if (job.applicant_id.length > 0) { %>
-                                        <a href='jobs/applicants/<%=job.id %>' style="text-decoration: none;" >
+                                        <a href='/recuriter/jobs/applicants/<%=job.id %>' style="text-decoration: none;" >
                                             <%= job.applicant_id.length %>
                                         </a>
                                     <% } else {%>
@@ -45,7 +45,7 @@
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     
-                                    <a href="#" class="text-danger" title="Delete">
+                                    <a href="/recuriter/job/delete/<%=job.id %>" class="text-danger" title="Delete">
                                         <i class="fas fa-trash"></i>
                                     </a>
                                 </td>

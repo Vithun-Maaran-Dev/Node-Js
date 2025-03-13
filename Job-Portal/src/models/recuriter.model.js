@@ -131,3 +131,19 @@ export const getupdateJob = (recuriterId, reqData) => {
      }
 
 }
+
+export const getdeleteJob = (recuriterId, jobId) => {
+
+     if (recuriterId !== "") {
+          const jobIndex = jobs.findIndex(job => job.id === jobId && job.recuriter_id === recuriterId)
+
+          if (jobIndex !== -1) {
+               jobs.splice(jobIndex, 1);
+               return true;
+          }
+     }
+     else {
+          return false
+     }
+
+}

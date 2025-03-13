@@ -1,5 +1,5 @@
 import { getJob, getJobWithRecuriter } from "../models/jobs.model.js";
-import { addjob, getApplicant, getPostedJob, getupdateJob, updateApplicantStatus } from "../models/recuriter.model.js";
+import { addjob, getApplicant, getdeleteJob, getPostedJob, getupdateJob, updateApplicantStatus } from "../models/recuriter.model.js";
 
 
 export const getPosedJobsView = (req, res) => {
@@ -102,6 +102,23 @@ export const updateJob = (req, res) => {
      }
      else {
           return res.status(400).render(`jobForm`, { isError: true, errorMessages: ['Error updating job. Try after sometime.'] });
+     }
+}
+
+export const deleteJob = (req, res) => {
+
+     const jobId = parseInt(req.params.jobId);
+     const recuriterId = parseInt(req.session._id);
+
+     const isDeleted = getdeleteJob(recuriterId, jobId);
+
+     if (isDeleted) {
+          const filteredJobs = getPostedJob(recuriterId);
+
+          return res.status(200).render('postedJobs', { found: true, jobs: filteredJobs.postedJobs })
+     }
+     else {
+          return res.status(404).render('postedJobs', { found: false, message: 'Something went wrong while deleting the job.' })
      }
 
 
