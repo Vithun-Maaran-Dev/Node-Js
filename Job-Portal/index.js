@@ -8,7 +8,7 @@ import session from "express-session";
 import { loginView, registerView, login, register, appliedJobView, logout, applyJob, myProfile, updateResume } from "./src/controllers/users.controller.js";
 import { validateUser } from "./src/middleware/users.middleware.js";
 import { upload } from "./src/middleware/uploadResume.middleware.js";
-import { adminDashboardView } from "./src/controllers/admin.controller.js";
+import { adminDashboardView, getAllJobs } from "./src/controllers/admin.controller.js";
 import { adminAuth, userAuth, recuriterAuth } from "./src/middleware/auth.middleware.js";
 import { jobsView, jobView } from "./src/controllers/jobs.controller.js";
 import { deleteExistingPdf } from "./src/middleware/deletePdfFile.middleware.js";
@@ -82,7 +82,7 @@ server.get('/recuriter/job/delete/:jobId', recuriterAuth, deleteJob)
 
 //admin routes
 server.get(`/adminDashboard`, adminAuth, adminDashboardView)
-
+server.get('/admin/jobs', adminAuth, getAllJobs)
 
 
 

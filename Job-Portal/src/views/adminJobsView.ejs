@@ -1,0 +1,46 @@
+<% if (!found) { %>
+      <div class="alert alert-danger text-center" role="alert">
+            <p class="mb-2"><%= mess%></p>
+            <a href="/jobs" class="btn btn-primary btn-sm">Back to Jobs</a>
+        </div>
+<% } else {%>
+     <div class="container-fluid mt-4">
+     <h2 class="mb-4 text-center">Job Listings</h2>
+     <div class="table-responsive">
+          <table class="table table-bordered table-striped">
+               <thead class="table-dark">
+                    <tr>
+                         <th>Job Id</th>
+                         <th>Job Title</th>
+                         <th>Company</th>
+                         <th>Location</th>
+                         <th>Type</th>
+                         <th>Salary</th>
+                         <th>Posted Date</th>
+                         <th>Applicants count</th>
+                         <th>Recruiter ID</th>
+                         <th>Recruiter Name</th>
+                    </tr>
+               </thead>
+               <tbody>
+                    <% jobs.forEach(job => { %>
+                         <tr>
+                               <td> 
+                                   <a href="/jobs/<%=job.id %>" class="btn btn-sm btn-primary"><%= job.id %></a>
+                              </td>
+                              <td><%= job.title %></td>
+                              <td><%= job.company %></td>
+                              <td><%= job.location %></td>
+                              <td><%= job.type %></td>
+                              <td><%= job.salary %></td>
+                              <td><%= job.posted_date %></td>
+                              <td><%= job.applicant_id.length %></td>
+                              <td><%= job.recuriter_id %></td>
+                              <td><%= job.recuriterName %></td>
+                         </tr>
+                    <% }) %>
+               </tbody>
+          </table>
+     </div>
+     </div>
+<%} %>

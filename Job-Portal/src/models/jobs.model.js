@@ -33,7 +33,7 @@ export let jobs = [
                "Database design and optimization experience"
           ],
           "applicant_id": [],
-          "recuriter_id": 3
+          "recuriter_id": 4
      },
      {
           "id": 3,

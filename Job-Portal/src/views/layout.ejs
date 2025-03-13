@@ -46,10 +46,10 @@
                                              </a>
                                         <% if (session.role?.toUpperCase() === `ADMIN`) { %>
                                              <ul class="dropdown-menu">
-                                                  <li><a class="dropdown-item" href="#">Jobs List</a></li>
-                                                  <li><a class="dropdown-item" href="#">User List</a></li>
+                                                  <li><a class="dropdown-item" href="/admin/jobs">Jobs List</a></li>
+                                                  <li><a class="dropdown-item" href="/admin/users">User List</a></li>
                                                   <li><hr class="dropdown-divider"></li>
-                                                  <li><a class="dropdown-item" href="#">DashBoard</a></li>
+                                                  <li><a class="dropdown-item" href="/admin/dashboard">DashBoard</a></li>
                                              </ul>
                                         <% } else if (session.role?.toUpperCase()=== `R`) {%>
                                              <ul class="dropdown-menu">
