@@ -1,0 +1,23 @@
+<div class="container-fluid mt-4">
+     <h2 class="mb-4 text-center">Job Listings</h2>
+     <div class="table-responsive">
+          <table class="table table-bordered table-striped">
+               <thead class="table-dark">
+                    <tr>
+                         <th>User Id</th>
+                         <th>User Email</th>
+                         <th>Role</th>
+                    </tr>
+               </thead>
+               <tbody>
+                    <% users.forEach(user => { %>
+                         <tr>
+                              <td><%= user._id %></td>
+                              <td><%= user.email %></td>
+                              <td><%= user.role === 'J' ? 'Job Seeker' : 'Recuriter' %></td>
+                         </tr>
+                    <% }) %>
+               </tbody>
+          </table>
+     </div>
+     </div>
