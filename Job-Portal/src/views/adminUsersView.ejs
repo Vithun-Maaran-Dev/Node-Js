@@ -5,6 +5,7 @@
                <thead class="table-dark">
                     <tr>
                          <th>User Id</th>
+                         <th>User Name</th>
                          <th>User Email</th>
                          <th>Role</th>
                     </tr>
@@ -13,6 +14,7 @@
                     <% users.forEach(user => { %>
                          <tr>
                               <td><%= user._id %></td>
+                              <td><%= user.username %></td>
                               <td><%= user.email %></td>
                               <td><%= user.role === 'J' ? 'Job Seeker' : 'Recuriter' %></td>
                          </tr>
