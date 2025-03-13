@@ -24,7 +24,7 @@ export const login = (req, res) => {
 
      if (req.session.role === "J" || req.session.role === "R" || req.session.role === "Admin") {
           const jobsList = getAllJobs();
-          return res.render("jobs", { jobs: jobsList })
+          return res.render("jobs", { found: true, jobs: jobsList })
      }
      else {
           return res.redirect("login")

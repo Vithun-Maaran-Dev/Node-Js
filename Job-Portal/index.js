@@ -10,7 +10,7 @@ import { validateUser } from "./src/middleware/users.middleware.js";
 import { upload } from "./src/middleware/uploadResume.middleware.js";
 import { adminDashboardView, getAdminAllJobs, getAdminAllUsers } from "./src/controllers/admin.controller.js";
 import { adminAuth, userAuth, recuriterAuth } from "./src/middleware/auth.middleware.js";
-import { jobsView, jobView } from "./src/controllers/jobs.controller.js";
+import { jobsView, jobView, searchJobs } from "./src/controllers/jobs.controller.js";
 import { deleteExistingPdf } from "./src/middleware/deletePdfFile.middleware.js";
 import { getPosedJobsView, getPostJobView, getApplicantsView, applicantStatus, postJob, getUpdateJobView, updateJob, deleteJob } from "./src/controllers/recuriter.controller.js";
 import { validateJob } from "./src/middleware/recuriter.middleware.js";
@@ -61,6 +61,7 @@ server.get(`/logout`, logout);
 //jobs routes
 server.get(`/jobs`, jobsView)
 server.get('/jobs/:id', jobView)
+server.post('/jobs/search', searchJobs)
 
 //user routes
 server.post('/apply', userAuth, applyJob);
@@ -81,7 +82,7 @@ server.get('/recuriter/job/delete/:jobId', recuriterAuth, deleteJob)
 
 
 //admin routes
-server.get(`/adminDashboard`, adminAuth, adminDashboardView)
+server.get(`/admin/Dashboard`, adminAuth, adminDashboardView)
 server.get('/admin/jobs', adminAuth, getAdminAllJobs)
 server.get('/admin/users', adminAuth, getAdminAllUsers)
 

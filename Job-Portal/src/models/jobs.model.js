@@ -158,3 +158,26 @@ export const addApplicant = (userId, jobId) => {
      }
 }
 
+export const jobSearch = (searchValue) => {
+     let jobs = getAllJobs();
+
+     if (searchValue !== "") {
+
+          const filteredJobs = jobs.filter(job =>
+               job.title.toLowerCase().includes(searchValue.toLowerCase()) ||
+               job.company.toLowerCase().includes(searchValue.toLowerCase()) ||
+               job.skills.some(skill => skill.toLowerCase().includes(searchValue.toLowerCase())));
+
+          if (filteredJobs.length > 0) {
+               return { success: true, jobs: filteredJobs }
+          }
+          else {
+               return { success: false }
+          }
+     }
+     else {
+          return { success: true, jobs: jobs }
+     }
+
+}
+

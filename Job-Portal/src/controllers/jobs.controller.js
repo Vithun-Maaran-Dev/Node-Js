@@ -1,10 +1,10 @@
-import { getAllJobs, getJob } from "../models/jobs.model.js";
+import { getAllJobs, getJob, jobSearch } from "../models/jobs.model.js";
 import { appliedJobs } from "../models/users.model.js";
 
 
 export const jobsView = (req, res) => {
      const jobsList = getAllJobs();
-     res.render(`jobs`, { jobs: jobsList });
+     res.render(`jobs`, { found: true, jobs: jobsList });
 }
 
 export const jobView = (req, res) => {
@@ -32,6 +32,20 @@ export const jobView = (req, res) => {
 
 }
 
+
+export const searchJobs = (req, res) => {
+     const { searchJob } = req.body;
+
+     const Jobs = jobSearch(searchJob);
+
+     if (Jobs.success) {
+          res.status(200).render(`jobs`, { found: true, jobs: Jobs.jobs });
+     }
+     else {
+          res.status(404).render(`jobs`, { found: false });
+     }
+
+}
 
 
 

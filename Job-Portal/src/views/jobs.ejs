@@ -1,4 +1,26 @@
-<div class="row">
+
+<form action="/jobs/search" method="post" class="d-flex justify-content-center mb-4">
+    <div class="input-group w-50">
+      <input 
+        type="text" 
+        class="form-control border-warning" 
+        placeholder="Search for jobs..." 
+        name="searchJob"
+        id="searchJob"
+        required
+      />
+      <button class="btn btn-warning rounded" type="submit">Search</button>
+    </div>
+  </form>
+
+
+<% if (!found) { %>
+       <div class="alert alert-danger text-center" role="alert">
+            <p class="mb-2">No jobs found.</p>
+            <a href="/jobs" class="btn btn-primary btn-sm">Back to Jobs</a>
+        </div>
+<% } else {%>
+     <div class="row">
         <!-- Job Card -->
          <% jobs.forEach(job => { %>
                <div class="col-md-6 col-sm-6 col-lg-3 mt-3 ">
@@ -19,3 +41,4 @@
                </div>
          <%}); %>
     </div>
+<% } %>
