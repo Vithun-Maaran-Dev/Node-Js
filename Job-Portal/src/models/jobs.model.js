@@ -50,8 +50,8 @@ export let jobs = [
                "Experience with Python and deep learning frameworks",
                "Ability to process and analyze large datasets"
           ],
-          "applicant_id": [],
-          "recuriter_id": 4
+          "applicant_id": [5],
+          "recuriter_id": 3
      },
      {
           "id": 4,

@@ -19,36 +19,36 @@
                 <tbody>
                     <% users.forEach(user => { %>
                         <tr>
-                                <td> <%= user.username %></td>
-                                <td><%= user.email %></td>
-                                <td>
-                                   <a href="/ResumesCollection/<%= user.resume %>" id="resume-link" target="_blank">
-                                             <%= user.resume %>
-                                   </a>
-                                   </td>
-                               <td > 
-                                    <% if(user.status === 'A') {%>
-                                         <span class="badge bg-success p-2">Accepted</span>
-                                    <% } else if(user.status === 'R') {%>
-                                        <span class="badge bg-danger p-2">Rejected</span>
-                                    <% } else {%>
-                                        <form method="post" action="/recuriter/applicant/action" id="appliedAction" style="display: inline-block;" onsubmit="return setActionType(event)">
-                                                <input type="hidden" value="<%= jobId %>" id="jobId" name="jobId">
-                                                <input type="hidden" value="<%= user._id %>" id="userId" name="userId">
-                                                <input type="hidden" id="statusType" name="statusType" value="">
+                            <td><%= user.username %></td>
+                            <td><%= user.email %></td>
+                            <td>
+                                <a href="/ResumesCollection/<%= user.resume %>" target="_blank">
+                                    <%= user.resume %>
+                                </a>
+                            </td>
+                            <td>
+                                <% if(user.status === 'A') {%>
+                                    <span class="badge bg-success p-2">Accepted</span>
+                                <% } else if(user.status === 'R') {%>
+                                    <span class="badge bg-danger p-2">Rejected</span>
+                                <% } else {%>
+                                    <form method="post" action="/recuriter/applicant/job/action" onsubmit="return setActionType(event, '<%= user._id %>')">
+                                        <input type="hidden" name="jobId" value="<%= jobId %>">
+                                        <input type="hidden" name="userId" value="<%= user._id %>">
+                                        <input type="hidden" id="statusType-<%= user._id %>" name="statusType" value="">
 
-                                                <!-- Accept Button -->
-                                                <button type="submit" class="btn btn-sm" onclick="setActionTypeValue('A')">
-                                                    <i class="fas fa-check  fs-5 text-success"></i>
-                                                </button>
+                                        <!-- Accept Button -->
+                                        <button type="submit" class="btn btn-sm" onclick="setActionTypeValue('<%= user._id %>', 'A')">
+                                            <i class="fas fa-check fs-5 text-success"></i>
+                                        </button>
 
-                                                <!-- Reject Button -->
-                                                <button type="submit" class="btn btn-sm" onclick="setActionTypeValue('R')">
-                                                    <i class="fas fa-times fs-5 text-danger"></i>
-                                                </button>
-                                        </form>
-                                    <% } %>
-                                </td>
+                                        <!-- Reject Button -->
+                                        <button type="submit" class="btn btn-sm" onclick="setActionTypeValue('<%= user._id %>', 'R')">
+                                            <i class="fas fa-times fs-5 text-danger"></i>
+                                        </button>
+                                    </form>
+                                <% } %>
+                            </td>
                         </tr>
                     <% }) %>
                 </tbody>
@@ -58,19 +58,16 @@
 <%}%>
 
 <script>
-    let actionType = '';
-
-    function setActionTypeValue(type) {
-        actionType = type;
+   function setActionTypeValue(userId, type) {
+        document.getElementById(`statusType-${userId}`).value = type;
     }
 
-    function setActionType(event) {
+    function setActionType(event, userId) {
+        const actionType = document.getElementById(`statusType-${userId}`).value;
         if (!actionType) {
             event.preventDefault(); // Prevent submission if no action type is set
             return false;
         }
-        document.getElementById('statusType').value = actionType;
-        return true; // Allow submission
+        return true;
     }
-
 </script>

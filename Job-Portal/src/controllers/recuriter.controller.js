@@ -50,6 +50,7 @@ export const applicantStatus = (req, res) => {
           const users = getApplicant(job);
 
           if (users.success) {
+
                return res.status(200).render('appliedApplicants', { isFound: true, users: users.appliedApplicants, jobId: jobId })
           }
           else {

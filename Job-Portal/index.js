@@ -72,7 +72,7 @@ server.post('/update/resume', userAuth, upload.single("newresume"), deleteExisti
 server.get('/recuriter/myprofile', recuriterAuth, myProfile)
 server.get('/recuriter/jobposted', recuriterAuth, getPosedJobsView)
 server.get('/recuriter/jobs/applicants/:jobid', recuriterAuth, getApplicantsView)
-server.post('/recuriter/applicant/action', recuriterAuth, applicantStatus)
+server.post('/recuriter/applicant/job/action', recuriterAuth, applicantStatus)
 server.get('/recuriter/postjob', recuriterAuth, getPostJobView)
 server.post('/recuriter/addjob', recuriterAuth, validateJob, postJob)
 server.get('/recuriter/job/update/:jobId', recuriterAuth, getUpdateJobView)
