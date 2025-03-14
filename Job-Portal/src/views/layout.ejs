@@ -54,27 +54,27 @@
                                              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                   <%= session.email %>
                                              </a>
-                                        <% if (session.role?.toUpperCase() === `ADMIN`) { %>
-                                             <ul class="dropdown-menu">
-                                                  <li><a class="dropdown-item" href="/admin/jobs">Jobs List</a></li>
-                                                  <li><a class="dropdown-item" href="/admin/users">User List</a></li>
-                                                  <li><hr class="dropdown-divider"></li>
-                                                  <li><a class="dropdown-item" href="/admin/dashboard">DashBoard</a></li>
-                                             </ul>
-                                        <% } else if (session.role?.toUpperCase()=== `R`) {%>
-                                             <ul class="dropdown-menu">
-                                                  <li><a class="dropdown-item" href="/recuriter/jobposted">Jobs Posted</a></li>
-                                                  <li><a class="dropdown-item" href="/recuriter/postjob">Post a Job</a></li>
-                                                  <li><hr class="dropdown-divider"></li>
-                                                  <li><a class="dropdown-item" href="/recuriter/myprofile">My Account</a></li>
-                                             </ul>
-                                        <% } else  if (session.role?.toUpperCase()=== `J`){%>
-                                             <ul class="dropdown-menu">
-                                                  <li><a class="dropdown-item" href="/appliedJob">Jobs Applied</a></li>
-                                                  <li><hr class="dropdown-divider"></li>
-                                                  <li><a class="dropdown-item" href="/user/myprofile">My Account</a></li>
-                                             </ul>
-                                        <% }%>
+                                             <% if (session.role?.toUpperCase() === `ADMIN`) { %>
+                                                  <ul class="dropdown-menu">
+                                                       <li><a class="dropdown-item" href="/admin/jobs">Jobs List</a></li>
+                                                       <li><a class="dropdown-item" href="/admin/users">User List</a></li>
+                                                       <li><hr class="dropdown-divider"></li>
+                                                       <li><a class="dropdown-item" href="/admin/dashboard">DashBoard</a></li>
+                                                  </ul>
+                                             <% } else if (session.role?.toUpperCase()=== `R`) {%>
+                                                  <ul class="dropdown-menu">
+                                                       <li><a class="dropdown-item" href="/recuriter/jobposted">Jobs Posted</a></li>
+                                                       <li><a class="dropdown-item" href="/recuriter/postjob">Post a Job</a></li>
+                                                       <li><hr class="dropdown-divider"></li>
+                                                       <li><a class="dropdown-item" href="/recuriter/myprofile">My Account</a></li>
+                                                  </ul>
+                                             <% } else  if (session.role?.toUpperCase()=== `J`){%>
+                                                  <ul class="dropdown-menu">
+                                                       <li><a class="dropdown-item" href="/appliedJob">Jobs Applied</a></li>
+                                                       <li><hr class="dropdown-divider"></li>
+                                                       <li><a class="dropdown-item" href="/user/myprofile">My Account</a></li>
+                                                  </ul>
+                                             <% }%>
                                    </li>
                               <% } %>
                          </ul>
