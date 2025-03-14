@@ -1,6 +1,7 @@
 import express from "express"
 import path from "path"
 import ejsLayout from "express-ejs-layouts"
+import cors from "cors";
 import session from "express-session";
 
 
@@ -13,6 +14,7 @@ server.set('views', path.resolve(`src`, `views`))
 server.use(ejsLayout);
 server.use(express.static('public'));
 
+server.use(cors())
 server.use(express.json())
 server.use(express.urlencoded({ extended: true }));
 
