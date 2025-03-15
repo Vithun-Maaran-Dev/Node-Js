@@ -3,6 +3,7 @@ import path from "path"
 import ejsLayout from "express-ejs-layouts"
 import cors from "cors";
 import session from "express-session";
+import userRouer from "./src/features/user/users.routes.js";
 
 
 
@@ -19,17 +20,19 @@ server.use(express.json())
 server.use(express.urlencoded({ extended: true }));
 
 
-server.get(`/`, (req, res) => {
-     res.render("index")
-});
+server.use('/api', userRouer);
 
 
 
+//If API does not exists
+server.use((req, res) => {
+     res.status(404).send({ sucess: false, errorMess: 'API does not exists.' })
+})
 
 
 
 //creating port
-server.listen(5000, (err) => {
+server.listen(3000, (err) => {
      if (err) {
           console.log(err)
      }
