@@ -3,10 +3,10 @@ import { getAllUsers, login, register } from "./users.controller.js";
 import { jwtAuth } from "../../middleware/jwtAuth.middleware.js";
 
 
-const userRouer = express.Router();
+const userRouter = express.Router();
 
-userRouer.post('/signin', login)
-userRouer.post('/signup', register)
+userRouter.post('/signin', login)
+userRouter.post('/signup', register)
+userRouter.get('/allusers', jwtAuth, getAllUsers)
 
-userRouer.get('/allusers', jwtAuth, getAllUsers)
-export default userRouer;
+export default userRouter;

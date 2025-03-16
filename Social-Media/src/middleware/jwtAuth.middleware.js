@@ -9,6 +9,8 @@ export const jwtAuth = (req, res, next) => {
 
      try {
           const payload = jwt.verify(token, "SocialMediaApp")
+          req.userId = payload.id;
+
      }
      catch (err) {
           return res.status(401).send({ success: false, errorMess: "Something went wrong unauthorized user. Please login " })

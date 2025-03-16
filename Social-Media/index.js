@@ -3,7 +3,8 @@ import path from "path"
 import ejsLayout from "express-ejs-layouts"
 import cors from "cors";
 import session from "express-session";
-import userRouer from "./src/features/user/users.routes.js";
+import userRouter from "./src/features/user/users.routes.js";
+import postRouter from "./src/features/posts/posts.routes.js";
 
 
 
@@ -20,7 +21,9 @@ server.use(express.json())
 server.use(express.urlencoded({ extended: true }));
 
 
-server.use('/api', userRouer);
+server.use('/api', userRouter);
+server.use('/api/posts', postRouter);
+
 
 
 
