@@ -52,7 +52,7 @@ export const myPosts = (userId) => {
 export const deletePost = (userId, myPostId) => {
      const deletedPostIndex = posts.findIndex(post => post.id === parseInt(myPostId) && post.userId === parseInt(userId))
 
-     if (deletedPostIndex != -1) {
+     if (deletedPostIndex !== -1) {
           posts.splice(deletedPostIndex, 1);
           const myPostsArr = myPosts(userId);
           return { success: true, myposts: myPostsArr.myPosts }
