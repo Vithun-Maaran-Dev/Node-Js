@@ -2,10 +2,9 @@ import express from "express"
 import path from "path"
 import ejsLayout from "express-ejs-layouts"
 import cors from "cors";
-import session from "express-session";
 import userRouter from "./src/features/user/users.routes.js";
 import postRouter from "./src/features/posts/posts.routes.js";
-
+import commentRouter from "./src/features/comments/comments.routes.js"
 
 
 //creating server
@@ -23,7 +22,7 @@ server.use(express.urlencoded({ extended: true }));
 
 server.use('/api', userRouter);
 server.use('/api/posts', postRouter);
-
+server.use('/api/comments', commentRouter)
 
 
 
