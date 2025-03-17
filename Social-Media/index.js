@@ -5,6 +5,7 @@ import cors from "cors";
 import userRouter from "./src/features/user/users.routes.js";
 import postRouter from "./src/features/posts/posts.routes.js";
 import commentRouter from "./src/features/comments/comments.routes.js"
+import likeRouter from "./src/features/likes/likes.routes.js";
 
 
 //creating server
@@ -23,6 +24,7 @@ server.use(express.urlencoded({ extended: true }));
 server.use('/api', userRouter);
 server.use('/api/posts', postRouter);
 server.use('/api/comments', commentRouter)
+server.use('/api/likes', likeRouter)
 
 
 
