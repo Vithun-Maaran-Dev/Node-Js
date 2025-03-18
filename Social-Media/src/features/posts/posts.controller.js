@@ -1,4 +1,4 @@
-import { getPosts, post, myPosts, deletePost } from "./posts.model.js"
+import { getPosts, post, myPosts, addPost, deletePost, updatePost } from "./posts.model.js"
 
 export const getAllPosts = (req, res) => {
 
@@ -38,6 +38,34 @@ export const getMyPosts = (req, res) => {
      }
      else {
           return res.status(404).send({ success: posts.success, errorMess: 'No post Found for your login' });
+     }
+}
+
+
+export const addNewPost = (req, res) => {
+
+     const userId = req.userId;
+     const isAdded = addPost(userId, req.body, req.file ? req.file : "");
+
+     if (isAdded.success) {
+          return res.status(200).send({ success: isAdded.success, posts: isAdded.post });
+     }
+     else {
+          return res.status(404).send({ success: isAdded.success, errorMess: 'Error in uploading post.' });
+     }
+}
+
+export const getUpdatePost = (req, res) => {
+     const userId = req.userId;
+     const { postId } = req.params;
+
+     const isUpdated = updatePost(userId, postId, req.body, req.file ? req.file : "");
+
+     if (isUpdated.success) {
+          return res.status(200).send({ success: isUpdated.success, updatedpost: isUpdated.updatedPost });
+     }
+     else {
+          return res.status(404).send({ success: isUpdated.success, errorMess: 'Error in updating post.' });
      }
 
 }
