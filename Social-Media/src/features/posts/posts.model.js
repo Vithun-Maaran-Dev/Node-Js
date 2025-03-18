@@ -8,8 +8,8 @@ let posts = [
      {
           id: 2,
           userId: 2,
-          captions: 'This my second post',
-          imageUrl: 'https://wallpapercave.com/wp/u0FTYvt.jpg'
+          captions: 'Walpaper',
+          imageUrl: 'walpper.jpeg'
      },
      {
           id: 3,
