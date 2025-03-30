@@ -19,7 +19,7 @@ export const login = (req, res) => {
           res.status(200).send({ sucess: isUser.success, token: token });
      }
      else {
-          res.status(404).send('Login Failed. Incorrect emai and password.')
+          res.status(404).send('Login Failed. Incorrect email and password.')
      }
 
 }
