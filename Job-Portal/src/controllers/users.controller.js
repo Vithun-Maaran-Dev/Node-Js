@@ -3,7 +3,18 @@ import { registerUser, loginUser, appliedJobIdByUser, addJob, getProfileDetails,
 
 
 export const loginView = (req, res) => {
-     res.render('login', { isError: false, errorMessage: `` });
+
+     if (req.session.email) {
+          return req.session.destroy((err) => {
+               if (err) {
+                    return res.status(500).json({ message: "Some Internal error occur while going to login." });
+               }
+               res.clearCookie("connect.sid"); // Clear session cookie (for express-session)
+               res.status(200).redirect("login");
+          });
+     }
+
+     return res.render('login', { isError: false, errorMessage: `` });
 }
 
 export const registerView = (req, res) => {
