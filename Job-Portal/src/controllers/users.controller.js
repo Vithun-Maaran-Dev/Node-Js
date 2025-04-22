@@ -18,7 +18,17 @@ export const loginView = (req, res) => {
 }
 
 export const registerView = (req, res) => {
-     res.render('register', { isError: false, errorMessages: [] })
+     if (req.session.email) {
+          return req.session.destroy((err) => {
+               if (err) {
+                    return res.status(500).json({ message: "Some Internal error occur while going to login." });
+               }
+               res.clearCookie("connect.sid"); // Clear session cookie (for express-session)
+               res.status(200).redirect("register");
+          });
+     }
+
+     return res.render('register', { isError: false, errorMessages: [] })
 };
 
 export const login = (req, res) => {
