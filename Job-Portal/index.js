@@ -86,10 +86,6 @@ server.get(`/admin/Dashboard`, adminAuth, adminDashboardView)
 server.get('/admin/jobs', adminAuth, getAdminAllJobs)
 server.get('/admin/users', adminAuth, getAdminAllUsers)
 
-
-
-
-
 //creating port
 server.listen(5000, (err) => {
      if (err) {
