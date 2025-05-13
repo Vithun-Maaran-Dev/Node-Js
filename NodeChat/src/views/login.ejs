@@ -1,0 +1,30 @@
+<% if (isError) { %>
+   <div class="alert alert-danger container mt-2" role="alert">
+      <li><%= errorMessage %></li>
+   </div>
+<%} %>
+
+   <div class="container-fluid d-flex justify-content-center align-items-center min-vh-100">
+      <div class="card p-3 shadow-lg" style="width: 350px;">
+         <div class="d-flex justify-content-center">
+            <img src="/image/icon.png"  alt="icon" class="img-fluid rounded  w-25 h-25 mb-3" />
+         </div>
+         
+         <form action="/api/user/login" method="post">
+            <div class="form-floating mb-3">
+               <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com"  required>
+               <label for="email">Email address</label>
+            </div>
+            <div class="form-floating mb-3">
+               <input type="password" class="form-control" id="password" name="password" placeholder="password" required>
+               <label for="password">Password</label>
+            </div>
+               <!-- Login Button -->
+            <button type="submit" class="btn btn-gradient w-100">Login</button>
+         </form>
+
+         <div class="text-center mt-3">
+               <p>Don't have an account? <a href="/api/user/register" class="text-decoration-none">Sign up</a></p>
+         </div>
+      </div>
+   </div>

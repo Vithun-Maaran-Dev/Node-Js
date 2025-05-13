@@ -1,0 +1,160 @@
+<% if (isError) { %>
+    <div class="alert alert-danger container mt-2" role="alert">
+        <ul> 
+            <% errorMessages.forEach( errorMessage =>{ %>
+                <li><%= errorMessage %></li>
+            <% }) %>
+        </ul>
+    </div>
+<%} %>
+
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+   <div class="card p-3 shadow-lg" style="width: 350px;">
+      <div class="d-flex justify-content-center">
+         <img src="/image/icon.png"  alt="icon" class="img-fluid rounded  w-25 h-25 mb-3" />
+      </div>
+      
+      <form action="/api/user/register" method="post">
+
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
+            <label for="username">Username</label>
+         </div>
+
+         <div class="form-floating mb-3">
+            <input type="number" class="form-control" id="age" placeholder="Enter your age" name="age" min="18" required>
+            <label for="age">Age</label>
+         </div>
+
+         <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="password" name ="password" placeholder="Password" required>
+            <label for="password">Password</label>
+         </div>
+
+         <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="conpassword" name ="conpassword" placeholder="Password" required>
+            <label for="conpassword">Confrim Password</label>
+         </div>
+
+         <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required>
+            <label for="email">Email</label>
+            <p class="mx-2" id="verify-email-field" onclick="sendEmail()"
+               style ="cursor: pointer; color: blue; font-size: medium;" 
+            >
+               Verfiy Email
+            </p>
+            <p class="mx-2" id="verified-email" style ="color: blue; font-size: medium;">
+               
+            </p>
+         </div>
+
+         <div class="form-floating mb-3" id="otp-field" style="display: none;" >
+            <input type="number" class="form-control" id="otp" name="otp" placeholder="1234">
+            <label for="email">OTP</label>
+            <p class="mx-2" id="verify-email-field" 
+               style ="cursor: pointer; color: blue; font-size: medium;" 
+               onclick="verifyOTP()">
+               Verify OTP
+            </p>
+         </div>
+        
+            <!-- Login Button -->
+         <button type="submit" class="btn btn-gradient w-100">Register</button>
+      </form>
+
+      <div class="text-center mt-3">
+         <p>Have an account? <a href="/api/user/login" class="text-decoration-none">Login</a></p>
+      </div>
+   </div>
+</div>
+
+
+<script>
+   const sendEmail = async () => {
+
+      let email = document.getElementById("email");
+
+      email.setAttribute('readonly', true); 
+
+      if (email.value) {
+         const res = await fetch('/api/user/send-email', {
+            method: 'POST',
+            headers: {
+               'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email : email.value })
+         });
+
+         if (res.ok) {
+            alert('An OTP has been sent to your email. Please use it within 1 minute to verify your email address.');
+            const verifyEmailField = document.getElementById("verify-email-field");
+            verifyEmailField.style.display = "none";
+
+            const otpField = document.getElementById("otp-field");
+            otpField.style.display = "block";
+            otpField.querySelector('input').setAttribute('required', 'true'); // Add required when visible
+         } else {
+            const errorData = await res.json();
+            console.log(errorData);
+            alert(`Error: ${errorData.message || 'Failed to send email.'}`);
+         }
+      } else {
+         alert('Please enter email.');
+         return;
+      }
+   };
+
+   const verifyOTP = async () => {
+      let otp = document.getElementById("otp").value;
+      if (otp) {
+         const res = await fetch('/api/user/verify-otp', {
+            method: 'POST',
+            headers: {
+               'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ otp })
+         });
+
+         if (res.status === 200) {
+            let verifiedTxt = document.getElementById("verified-email");
+            verifiedTxt.innerHTML = `<span>Email Verified <i style="color:green;" class="fa fa-ticket" aria-hidden="true"></i></span>`;
+
+            const otpField = document.getElementById("otp-field");
+            otpField.style.display = "none";
+            otpField.querySelector('input').removeAttribute('required'); // Remove required when hidden
+
+            const emailTxtBox = document.getElementById("email");
+            emailTxtBox.setAttribute('readonly', true); 
+         } else {
+            const data = await res.json();
+            alert(`${data.mess}`);
+
+            let otptxtBox = document.getElementById("otp");
+            otptxtBox.value = "";
+
+            if (res.status === 400) {
+               let otpField = document.getElementById("otp-field");
+               otpField.style.display = "none";
+               otpField.querySelector('input').removeAttribute('required'); // Remove required when hidden
+
+               const verifyEmailField = document.getElementById("verify-email-field");
+               verifyEmailField.style.display = "block";
+               return;
+            }
+            return;
+         }
+      } else {
+         alert('Please enter OTP.');
+         return;
+      }
+   };
+
+   // Ensure the required attribute is removed when the form is submitted
+   document.querySelector('form').addEventListener('submit', (e) => {
+      const otpField = document.getElementById("otp-field");
+      if (otpField.style.display === "none") {
+         otpField.querySelector('input').removeAttribute('required');
+      }
+   });
+</script>

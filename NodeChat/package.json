@@ -1,0 +1,34 @@
+{
+  "name": "nodechat",
+  "version": "1.0.0",
+  "description": "nodechat is a sleek, modern chat application built using Node.js, Express.js, and MongoDB. Designed for real-time messaging, it allows users to connect instantly, share messages, and create dynamic conversations. Powered by Socket.io, the app ensures smooth and responsive communication with instant message delivery.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js"
+  },
+  "author": "vithunmaaran",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-basic-auth": "^1.2.1",
+    "express-ejs-layouts": "^2.5.1",
+    "express-session": "^1.18.1",
+    "install": "^0.13.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^5.7.0",
+    "mongoose": "^7.5.3",
+    "nodemailer": "^6.10.1",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1"
+  }
+}

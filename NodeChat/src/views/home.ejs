@@ -1,0 +1,740 @@
+<% 
+let mydataTitle = `
+   <div class="d-flex justify-content-between align-items-center">
+      <p><strong>My Profile</strong></p>
+      <p><a href="/api/user/logout" class="btn display-3 bg-info" title="logout"><i class="fas fa-sign-out-alt "></i></a></p>
+   </div>
+   `
+let myData = `
+   <div class="d-flex flex-column justify-content-center align-items-start">
+      <p><strong>Username:</strong> <i>${session.username.toUpperCase()}</i></p>
+      <p><strong>Email:</strong> <i>${session.email}</i></p>
+   </div>    
+   `
+%>
+<!-- appbar -->
+<nav class="navbar border-bottom border-dark navbar-light fixed-top p-2 bg-color" >
+  <div class="container-fluid">
+    <button class="btn btn-outline-light d-md-none me-2" type="button"
+            data-bs-toggle="offcanvas" data-bs-target="#sidebarOffcanvas" aria-controls="sidebarOffcanvas">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand text-black mb-0 h1" style="font-size: 2rem; font-style: italic; font-weight: 700;">NodeChat</a>
+
+    <input type="hidden" id="userId" name="userId" value="<%= session._id %>" readonly/>
+    <input type="hidden" id="login-emailId" name="login-emailId" value="<%= session.email %>" readonly/>
+    <input type="hidden" id="groupId" name="groupId" value="" readonly/>
+  
+   <button type="button" 
+      class="btn" 
+      data-bs-toggle="popover" 
+      data-bs-html="true"
+       data-bs-placement="left"
+      data-bs-title="<%= mydataTitle %>" 
+      data-bs-content="<%= myData %>">
+       <i class="fas fa-circle-user" style="font-size: 2rem;"></i> 
+   </button>
+  </div>
+</nav>
+
+<!-- Offcanvas for Mobile -->
+<div class="offcanvas offcanvas-start offcanvas-md" tabindex="-1" id="sidebarOffcanvas">
+   <div class="offcanvas-header">
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+  </div>
+  <div class="offcanvas-body">
+      <div class="d-flex justify-content-between align-items-center ">
+         <h5 class="px-2"><strong>My Chats</strong></h5>
+            <p type="button" class="btn bg-color border-dark" data-bs-toggle="modal" data-bs-target="#new-grp-modal">
+               <i class="fas fa-users px-2"></i> New 
+            </p>
+            <p type="button" class="btn bg-color border-dark" data-bs-toggle="modal" data-bs-target="#join-grp-modal">
+               <i class="fas fa-users px-2"></i> Join  
+            </p>
+      </div>
+   
+      <div class="flex-column px-1 chats-list">
+        
+      </div>
+  </div>
+</div>
+
+<!-- Modal for create new group -->
+<div class="modal fade" id="new-grp-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="new-grp-lbl"><strong>Create New Group</strong></h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+         <strong>
+            <i>
+               <p style="color: red; font-size: medium; display: none;" id="crt-grp-errorMess"></p>
+            </i>
+         </strong> 
+         <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="crte-grp-name" name="crte-grp-name" placeholder="Group Name" minlength="5" maxlength="20" required>
+            <label for="crte-grp-name">Group Name</label>
+         </div>
+         <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="crte-grp-password" name="crte-grp-password" placeholder="password" minlength="5" maxlength="10" required>
+            <label for="crte-grp-password">Create Password</label>
+         </div>
+         <button type="submit" id="create-group-btn" onclick="createGroup()" class="btn btn-gradient w-100">Create Group</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for join new group -->
+<div class="modal fade" id="join-grp-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="new-grp-lbl"><strong>Join New Group</strong></h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+         <strong>
+            <i>
+               <p style="color: red; font-size: medium; display: none;" id="join-grp-errorMess"></p>
+            </i>
+         </strong> 
+         <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="join-grp-id" name="join-grp-id" placeholder="Group Id"  required>
+            <label for="join-grp-id">Group Id</label>
+         </div>
+         <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="join-grp-password" name="join-grp-password" placeholder="password" required>
+            <label for="join-grp-password">Password</label>
+         </div>
+         <button type="submit" class="btn btn-gradient w-100" onclick="joinGroup()">Join Group</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for invite People -->
+<div class="modal fade" id="grp-invite-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h1 class="modal-title fs-5" id="new-grp-lbl"><strong>Invite Member</strong></h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+         </div>
+         <div class="modal-body">
+            <strong>
+               <i>
+                  <p style="color: red; font-size: medium; display: none;" id="invite-frnd-errorMess"></p>
+               </i>
+            </strong>
+            <div class="form-floating mb-3">
+               <input type="email" class="form-control" id="join-member" name="join-member" placeholder="email" required>
+               <label for="join-member">Email</label>
+            </div>
+            <button type="submit" class="btn btn-gradient w-100" onclick="invitePeople()">Invite</button>
+         </div>
+      </div>
+  </div>
+</div>
+
+<!-- Modal for groupInfo -->
+<div class="modal fade" id="grp-info-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h1 class="modal-title fs-5"><strong id="grp-info-heading"></strong></h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+         </div>
+         <div class="modal-body" id="grp-info-modal-body">
+            <div id="grp-ctr-info">
+            </div>
+            <strong>
+               <i><p id="grp-info-lbl">Members</p></i>
+            </strong>
+            <div id="grp-members-list" class="form-floating mb-3" style="overflow-y: auto; height: 400px;">
+            </div>
+         </div>
+      </div>
+  </div>
+</div>
+
+<!-- Main Content -->
+<div class="container-fluid bg-color" style="padding-top: 60px; ">
+   <div class="row full-height">
+   <!-- Static Sidebar (visible md and up) -->
+   <nav class=" border border-dark col-md-4 col-lg-3 d-none d-md-block ">
+      <div class="pt-4">
+        <div class="d-flex justify-content-between align-items-center ">
+            <h5 class="px-2"><strong>My Chats</strong></h5>
+            <p type="button" class="btn bg-color border-dark" data-bs-toggle="modal" data-bs-target="#new-grp-modal">
+               <i class="fas fa-users px-2"></i> New 
+            </p>
+            <p type="button" class="btn bg-color border-dark" data-bs-toggle="modal" data-bs-target="#join-grp-modal">
+               <i class="fas fa-users px-2"></i> Join  
+            </p>
+         </div>
+
+         <div class="flex-column px-1  chats-list" >
+            
+         </div>
+      </div>
+   </nav>
+
+    <!-- Chat Main Area -->
+    <main class="col-md-8 col-lg-9 chat-content px-3">
+      <div class="chat-wrapper pt-2">
+        
+         <!-- chat header -->
+         <div id="chat-header" class="text-dark p-2 rounded d-flex justify-content-between align-items-center">
+            <!-- <div class="d-flex align-items-center">
+               <h2 class="mb-0 me-1">Vetti Boys</h2>
+               <button class="btn btn-light btn-sm" onclick="showGroupInfo()">
+                  <i class="fas fa-info-circle"></i>
+               </button>
+            </div>
+            <button class="btn btn-light"  data-bs-toggle="modal" data-bs-target="#grp-invite-modal">
+                <i class="fas fa-user-plus"></i> Invite
+            </button> -->
+         </div>
+
+        <!-- Chat Messages -->
+        <div class="d-none" id="chat-box">
+            <!-- <div class="d-flex justify-content-start mb-2">
+               <div class="bg-light p-2 rounded text-start" style="max-width: 70%;">
+               <strong>Alice:</strong> <br /> Hello! ajkdha sjkd hasjkdhas jkdhas jkashdasjkhdasjk dasjkhdajkl dsasdsa sdsada sadsadsadsasad  sadsadkjndsa
+               </div>
+            </div>
+            
+            <div class="d-flex justify-content-end mb-2">
+               <div class="bg-primary text-white p-2 rounded text-start" style="max-width: 70%;">
+               <strong>You:</strong> <br />Hi there iksjaslkjaskl askaskldjasd sadsadasdas dasda lasj asldj aslkd ja.
+               </div>
+            </div> -->
+         </div>
+
+        <!-- msg Input -->
+         <div class="p-3" id="input-group" >
+            <!-- <div class="input-group">
+               <input type="text" class="form-control p-2" id="message" name="message" placeholder="Type a message...">
+               <button class="btn btn-primary" type="submit" id="sendBtn" onclick="sendMessage()">Send</button>
+            </div> -->
+         </div>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="http://localhost:3000/socket.io/socket.io.js"></script>
+
+<script>
+   const socket = io.connect('http://localhost:3000')
+
+   //calling the functions on load
+   loadChats()
+
+   async function loadChats(){
+      const userId = document.getElementById('userId').value;
+      if(userId){
+         const res = await fetch(`/api/user/get-groups/${userId}`,{
+            method: 'get',
+            headers: {
+               'Content-Type': 'application/json'
+            },
+         });
+         const value = await res.json()
+         if(res.ok){
+            if(value.groupData.length > 0){
+               await addChatsToList('.chats-list',value)
+               return
+            }
+            else{
+               const chatListDivs = document.querySelectorAll('.chats-list');
+               chatListDivs.forEach(chatListDiv =>{
+                  const noChatsMessage = `
+                     <div class="text-center text-muted mt-3 no-chat-txt">
+                        <p>No chats available. Create or join a group to start chatting!</p>
+                     </div>
+                  `;
+
+                  chatListDiv.insertAdjacentHTML('beforeend', noChatsMessage);
+               })
+               return
+            }
+         }
+      }
+      else{
+         alert('User ID is missing. PLease Login Agin. Unable to load chats.');
+      }
+   }
+
+   async function createGroup() {
+      const userId = document.getElementById('userId').value;
+      const groupName = document.getElementById('crte-grp-name').value;
+      const groupPassword = document.getElementById('crte-grp-password').value;
+      const errorEl = document.getElementById('crt-grp-errorMess');
+      
+      if (!userId || !groupName || !groupPassword) {
+         errorEl.textContent = 'Please fill required fields';
+         errorEl.style.display = 'block';
+
+         // Hide the error message after 2 seconds
+         setTimeout(() => {
+            errorEl.style.display = 'none';
+            errorEl.textContent = ''; 
+         }, 3000);
+         return;
+      }
+
+      const res = await fetch('/api/group/create-group',{
+         method: 'POST',
+         headers: {
+            'Content-Type': 'application/json'
+         },
+         body: JSON.stringify({ userId , groupName , groupPassword })
+      });
+      const value = await res.json()
+
+      if(res.ok){
+         //remove no chat text.
+         const data = document.querySelectorAll('.no-chat-txt');
+         data.forEach(element => {
+            element.style.display = 'none';
+         });
+
+         await addChatsToList('.chats-list',value)
+  
+         errorEl.textContent = value.mess;
+         errorEl.style.color = "green"
+         errorEl.style.display = 'block';
+      }
+      else{
+         errorEl.textContent = value.mess;
+         errorEl.style.display = 'block';
+      }
+
+      document.getElementById('crte-grp-name').value =""
+      document.getElementById('crte-grp-password').value =""
+      setTimeout(() => {
+            errorEl.style.display = 'none';
+            errorEl.textContent = ''; 
+      }, 3000);
+
+   }
+
+   async function joinGroup(){
+      const groupId = document.getElementById('join-grp-id').value;
+      const groupPassword = document.getElementById('join-grp-password').value;
+      const errorEl = document.getElementById('join-grp-errorMess');
+      const LoginEmailId = document.getElementById('login-emailId').value;
+
+      if (!groupId || !groupPassword) {
+         errorEl.textContent = 'Please fill required fields';
+         errorEl.style.display = 'block';
+
+         // Hide the error message after 2 seconds
+         setTimeout(() => {
+            errorEl.style.display = 'none';
+            errorEl.textContent = ''; 
+         }, 3000);
+         return;
+      }
+
+      const res = await fetch('/api/user/join-group',{
+         method: 'POST',
+         headers: {
+            'Content-Type': 'application/json'
+         },
+         body: JSON.stringify({ groupId , groupPassword , LoginEmailId })
+      });
+      const value = await res.json()
+
+      if(res.ok){
+         //remove no chat text.
+         const data = document.querySelectorAll('.no-chat-txt');
+         data.forEach(element => {
+            element.style.display = 'none';
+         });
+
+         await addChatsToList('.chats-list',value)
+  
+         errorEl.textContent = value.mess;
+         errorEl.style.color = "green"
+         errorEl.style.display = 'block';
+      }
+      else{
+         errorEl.textContent = value.mess;
+         errorEl.style.display = 'block';
+      }
+
+      document.getElementById('join-grp-id').value =""
+      document.getElementById('join-grp-password').value =""
+      setTimeout(() => {
+            errorEl.style.display = 'none';
+            errorEl.textContent = ''; 
+      }, 3000);
+
+      
+   }
+
+   async function addChatsToList(divToAdd, value) {
+      const chatListDivs = document.querySelectorAll(divToAdd);
+
+      if (!value.groupData) {
+         console.error("groupData is missing or undefined:", value);
+         return;
+      }
+
+      if (Array.isArray(value.groupData)) {
+         // Handle multiple groups
+         value.groupData.forEach(group => {
+               chatListDivs.forEach(chatListDiv => {
+                  const groupHTML = createGroupHTML(group);
+                  chatListDiv.insertAdjacentHTML('beforeend', groupHTML);
+               });
+         });
+      } else {
+         // Handle a single group
+         chatListDivs.forEach(chatListDiv => {
+               const groupHTML = createGroupHTML(value.groupData);
+               chatListDiv.insertAdjacentHTML('beforeend', groupHTML);
+         });
+      }
+   }
+
+   async function loadMessages(groupId) {
+
+      const userId = document.getElementById('userId').value;
+
+      // Join the group and load previousMessages by emitting a 'join' event
+      socket.emit('join', { senderId: userId, roomId : groupId });
+
+      document.getElementById('groupId').value = groupId
+      
+   }
+
+   async function sendMessage() {
+      const userId = document.getElementById('userId').value;
+      const groupId = document.getElementById('groupId').value;
+      const message = document.getElementById('message').value;
+
+      if (message === "") {
+         return;
+      }
+
+      socket.emit('sendMessage', { userId, groupId, message });
+      document.getElementById('message').value = '';
+
+      // Scroll to the bottom after sending a message
+      const chatBox = document.getElementById('chat-box');
+      chatBox.scrollTop = chatBox.scrollHeight;
+   }
+
+   async function invitePeople() {
+      const groupId = document.getElementById('groupId').value;
+      const frndEmail = document.getElementById('join-member').value;
+      const errorEl = document.getElementById('invite-frnd-errorMess');
+
+      if (!frndEmail) {
+         errorEl.textContent = 'Please fill Email field';
+         errorEl.style.display = 'block';
+
+         // Hide the error message after 2 seconds
+         setTimeout(() => {
+            errorEl.style.display = 'none';
+            errorEl.textContent = ''; 
+         }, 3000);
+         return;
+      }
+
+       const res = await fetch('/api/user/invite-friends',{
+         method: 'POST',
+         headers: {
+            'Content-Type': 'application/json'
+         },
+         body: JSON.stringify({ groupId , frndEmail })
+      });
+      const value = await res.json()
+
+      if(res.ok){
+         errorEl.textContent = value.mess;
+         errorEl.style.color = "green"
+         errorEl.style.display = 'block';
+      }
+      else{
+         errorEl.textContent = value.mess;
+         errorEl.style.display = 'block';
+      }
+
+      document.getElementById('join-member').value =""
+      setTimeout(() => {
+            errorEl.style.display = 'none';
+            errorEl.textContent = ''; 
+      }, 3000);
+   }
+
+   async function showGroupInfo(groupId) {
+
+      const res = await fetch('/api/group/get-group-info',{
+         method: 'POST',
+         headers: {
+            'Content-Type': 'application/json'
+         },
+         body: JSON.stringify({ groupId })
+      });
+      const value = await res.json()
+
+      if(res.ok){
+         document.getElementById('grp-info-heading').innerText = `${value.groupData.name} - Info`
+
+         const grpInfoModalBody = document.getElementById('grp-info-modal-body')
+         const grpCreatedInfo =  document.getElementById('grp-ctr-info')
+         const grpmembersList =  document.getElementById('grp-members-list')
+
+         grpCreatedInfo.innerHTML = `
+            <p class="text-muted">
+               <strong>Created By</strong> - ${value.groupData.createdBy.username}(${value.groupData.createdBy.email})
+            </p>
+            <p class="text-muted">
+               <strong>Created At</strong> -
+               ${new Date(value.groupData.createdAt).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' })}, 
+               ${new Date(value.groupData.createdAt).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })}
+            </p>
+         `
+
+         grpmembersList.innerHTML = ``;
+         value.groupData.members.forEach(member =>{
+            grpmembersList.innerHTML += `
+               <div class="chat-item d-flex align-items-center p-3">
+                  <!-- Avatar -->
+                  <div class="avatar bg-color text-black fw-bold d-flex justify-content-center align-items-center">
+                     ${member.username.charAt(0).toUpperCase()}
+                  </div>
+                  <!-- Group Details -->
+                  <div class="ms-3">
+                     <p class="mb-0 fw-bold">${member.username}</p>
+                     <small class="text-muted">${member.email}</small>
+                  </div>
+               </div>
+            `
+         })
+
+         grpInfoModalBody.appendChild(grpCreatedInfo,grpmembersList)
+      }
+      else{
+         alert(`Something went wrong while getting group info.`)
+      }
+   }
+
+   socket.on('loadChatHeader',(grp) =>{
+      const chatHeader = document.getElementById('chat-header');
+
+      // Clear existing content in the chat header
+      chatHeader.innerHTML = '';
+
+      const headerElement = document.createElement('div');
+      headerElement.classList.add('d-flex', 'align-items-center');
+
+      const innerHeaderElement = `
+         <h2 class="mb-0 me-1 px-2">${grp.groupName}</h2>
+         <div class="px-2">
+            <button class="btn btn-light btn-sm px-2" data-bs-toggle="modal" title="Group Info" data-bs-target="#grp-info-modal" onclick="showGroupInfo('${grp.groupId}')">
+               <i class="fas fa-info-circle"></i>
+            </button>
+         </div>
+         <div class="px-2">
+            <button class="btn btn-light btn-sm" data-bs-toggle="modal" title="Invite Friends" data-bs-target="#grp-invite-modal">
+            <i class="fas fa-user-plus"></i>
+            </button>
+         </div>
+         
+      `;
+
+      headerElement.innerHTML = innerHeaderElement;
+      chatHeader.appendChild(headerElement);
+
+   })
+
+   socket.on('loadPrvChat',async(prvMessArr) =>{
+
+      const loginUserId =  document.getElementById('userId').value;
+      const chatBox = document.getElementById('chat-box');
+      const inputGroup = document.getElementById('input-group');
+
+      chatBox.innerHTML = ``;
+      inputGroup.innerHTML = ``
+      chatBox.className = '';
+      chatBox.classList.add('msg-body','border','rounded','p-2','mb-1','border-dark','chat-box','bg-white')
+
+      if(prvMessArr.length > 0){
+         prvMessArr.forEach(prvMess =>{
+            const prvMessageElement = document.createElement('div');
+            prvMessageElement.innerHTML = `
+              <div class="d-flex ${loginUserId === prvMess.senderId._id ? "justify-content-end" : "justify-content-start"} mb-3">
+                  ${loginUserId !== prvMess.senderId._id ? `
+                  <div class="avatar bg-color text-dark d-flex justify-content-center align-items-center me-2" style="width: 40px; height: 40px; border-radius: 50%; font-weight: bold;">
+                     ${prvMess.senderId.username.charAt(0).toUpperCase()}
+                  </div>` : ''}
+                  <div class="${loginUserId === prvMess.senderId._id ? "to-chat text-dark sender-bubble" : "from-chat text-dark receiver-bubble"} p-3 shadow-sm" style="min-width:25% ; max-width: 70%; border-radius: 15px; position: relative; font-style:italic;">
+                     <div class="d-flex align-items-center mb-2">
+                        <strong>${prvMess.senderId.username}</strong>
+                     </div>
+                     <p class="mb-1" style="word-wrap: break-word;">${prvMess.text}</p>
+                     <small class="text-muted d-block text-end">
+                        ${new Date(prvMess.timestamp).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' })}, 
+                        ${new Date(prvMess.timestamp).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })}
+                     </small>
+                  </div>
+                  ${loginUserId === prvMess.senderId._id ? `
+                  <div class="avatar bg-color text-dark d-flex justify-content-center align-items-center ms-2" style="width: 40px; height: 40px; border-radius: 50%; font-weight: bold;">
+                     ${prvMess.senderId.username.charAt(0).toUpperCase()}
+                  </div>` : ''}
+               </div>
+            `;
+            chatBox.appendChild(prvMessageElement);
+         })
+      }
+      else{
+         const prvMessageElement = document.createElement('div');
+         prvMessageElement.id = `chat-info`
+         prvMessageElement.innerHTML = `No Chats yet. Please invite your friends and start your conversation.`
+
+         prvMessageElement.style.textAlign = 'center';
+         prvMessageElement.style.color = 'gray';
+         prvMessageElement.style.marginTop = '20px';
+         prvMessageElement.style.fontSize = '16px';
+         prvMessageElement.style.fontStyle = 'italic';
+
+         chatBox.appendChild(prvMessageElement);
+      }
+
+      const inputElements = document.createElement('div');
+      inputElements.className = `input-group`
+      inputElements.innerHTML = `
+            <input type="text" class="form-control p-2" id="message" name="message" placeholder="Type a message...">
+            <button class="btn btn-primary" type="submit" id="sendBtn" onclick="sendMessage()">Send</button>
+      `
+
+      inputGroup.appendChild(inputElements);
+
+      // Scroll to the bottom after receiving a message
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+   })
+   
+   socket.on('welcome-message', (message) => {
+      // Display the received message in the message display area
+      const chatBox = document.getElementById('chat-box');    
+      const welcomeMsg = document.createElement('div');
+      welcomeMsg.className = 'welcome-message';
+      welcomeMsg.innerHTML = `<strong>${message.text}</strong>`;
+      chatBox.appendChild(welcomeMsg);
+      
+      // Scroll to the bottom after receiving a message
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      // Optional: Add a fade-out effect after a few seconds
+      setTimeout(() => {
+         welcomeMsg.style.transition = 'opacity 0.5s ease-in-out';
+         welcomeMsg.style.opacity = '0';
+         setTimeout(() => welcomeMsg.remove(), 500); // Remove the element after fade-out
+      }, 3000);
+   });
+
+   socket.on('join-msg', (message) => {
+      // Display the received message in the message display area
+      const chatBox = document.getElementById('chat-box');
+
+      const userJoinMsg = document.createElement('div');
+      userJoinMsg.className = 'welcome-message'
+      userJoinMsg.innerHTML = `<strong>${message.text}</strong>`;
+      chatBox.appendChild(userJoinMsg);
+
+      // Scroll to the bottom after receiving a message
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      setTimeout(() => {
+         userJoinMsg.style.transition = 'opacity 0.5s ease-in-out';
+         userJoinMsg.style.opacity = '0';
+         setTimeout(() => userJoinMsg.remove(), 500); // Remove the element after fade-out
+      }, 3000);
+   });
+
+    // Listen for incoming messages from the server
+   socket.on('message', async (data) => {
+      const loginUserId =  document.getElementById('userId').value
+      const chatBox = document.getElementById('chat-box');
+
+      //remove ifo when new chat stated.
+      const chatInfoElement = document.getElementById('chat-info');
+      if (chatInfoElement) {
+         chatInfoElement.style.display = 'none';
+      }
+
+      // Display the received message in the message display area
+      const messageElement = document.createElement('div');
+      messageElement.innerHTML = `
+         <div class="d-flex ${loginUserId === data.userId? "justify-content-end" : "justify-content-start"} mb-3">
+            ${loginUserId !== data.userId ? `
+            <div class="avatar bg-color text-dark d-flex justify-content-center align-items-center me-2" style="width: 40px; height: 40px; border-radius: 50%; font-weight: bold;">
+               ${data.username.charAt(0).toUpperCase()}
+            </div>` : ''}
+            <div class="${loginUserId === data.userId ? "to-chat text-dark sender-bubble" : "from-chat text-dark receiver-bubble"} p-2 shadow-sm" style="min-width:25%; max-width: 70%; border-radius: 15px; position: relative; font-style:italic;">
+               <div class="d-flex align-items-center mb-2">
+                  <strong>${data.username}</strong>
+               </div>
+               <p class="mb-1" style="word-wrap: break-word;">${data.text}</p>
+               <small class="text-muted d-block text-end">
+                  ${new Date(data.timestamp).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' })}, 
+                  ${new Date(data.timestamp).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })}
+               </small>
+            </div>
+            ${loginUserId === data.userId? `
+            <div class="avatar bg-color text-dark d-flex justify-content-center align-items-center ms-2" style="width: 40px; height: 40px; border-radius: 50%; font-weight: bold;">
+               ${data.username.charAt(0).toUpperCase()}
+            </div>` : ''}
+         </div>`;
+
+
+      chatBox.appendChild(messageElement);
+
+      // Scroll to the bottom after receiving a message
+      chatBox.scrollTop = chatBox.scrollHeight;
+   });
+
+   socket.on('mess-error', async(data) =>{
+      const chatBox = document.getElementById('chat-box');
+
+      const erroMsg = document.createElement('div');
+      erroMsg.className = 'welcome-message'
+      erroMsg.innerHTML = `<strong>${data.errorMess}</strong>`;
+      chatBox.appendChild(erroMsg);
+
+      const messageInput = document.getElementById('message');
+      const sendButton = document.getElementById('sendButton');
+
+      messageInput.disabled = true
+      sendButton.disabled = true
+
+   })
+
+   // Helper function to create group HTML
+   function createGroupHTML(group) {
+      return `
+         <div class="chat-item d-flex align-items-center p-3" id="${group._id}" onClick="loadMessages('${group._id}')">
+               <!-- Avatar -->
+               <div class="avatar bg-color text-black fw-bold d-flex justify-content-center align-items-center">
+                  ${group.name.charAt(0).toUpperCase()}
+               </div>
+               <!-- Group Details -->
+               <div class="ms-3">
+                  <p class="mb-0 fw-bold">${group.name}</p>
+                  <small class="text-muted">${group.members.length} ${group.members.length > 1 ? "members" : "member"}</small>
+               </div>
+         </div>
+      `;
+   }
+
+</script>
