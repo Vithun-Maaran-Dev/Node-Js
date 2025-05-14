@@ -201,7 +201,7 @@ export const joinGroup = async (req, res) => {
       }
 
       // If the temporary password is invalid, check the main password
-      const isPassMatch = await group.comparePassword(groupPassword);
+      const isPassMatch = await group.groupData.comparePassword(groupPassword);
       if (!isPassMatch) {
          return res.status(400).send({ success: false, mess: `Invalid group password.` });
       }
