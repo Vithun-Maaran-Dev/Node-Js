@@ -183,7 +183,7 @@ export const joinGroup = async (req, res) => {
       // Validate the temporary password
       const inviteIndex = group.groupData.invitePasswords.findIndex((invite) =>
          invite.tempPass === groupPassword.trim() &&
-         invite.email === LoginEmailId
+         invite.email.toLowerCase() === LoginEmailId.toLowerCase()
       );
       if (inviteIndex !== -1) {
          // Add the user to the group
