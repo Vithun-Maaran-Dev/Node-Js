@@ -6,7 +6,7 @@ Hosting: Render
 
 🚀 Features:
 👨‍💼 Recruiter Panel:
-  1.Create and manage job listings.
+	1.Create and manage job listings.
   2.View all applications for a particular job.
   3.Review applicant resumes directly on the platform.
   4.Accept or reject applicants with a single click.
