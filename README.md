@@ -55,8 +55,6 @@ It also features an admin dashboard to monitor and manage user activity across t
 **Authentication:**  
 - Sessions  
 
----
-
 ## 👤 Roles Breakdown
 
 ### 🛠️ Admin
