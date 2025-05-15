@@ -72,7 +72,6 @@ It also features an admin dashboard to monitor and manage user activity across t
 - Track application statuses.  
 
 ---
----
 
 # 💬 NodeChat
 
