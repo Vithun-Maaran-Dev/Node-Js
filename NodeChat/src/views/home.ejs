@@ -675,6 +675,14 @@ let myData = `
          chatInfoElement.style.display = 'none';
       }
 
+      const selectedGrpId = document.getElementById('groupId').value;
+      console.log(selectedGrpId);
+      console.log(data.groupId);
+      
+      
+      if(selectedGrpId !== data.groupId){
+         return
+      }
       // Display the received message in the message display area
       const messageElement = document.createElement('div');
       messageElement.innerHTML = `
@@ -698,7 +706,6 @@ let myData = `
                ${data.username.charAt(0).toUpperCase()}
             </div>` : ''}
          </div>`;
-
 
       chatBox.appendChild(messageElement);
 

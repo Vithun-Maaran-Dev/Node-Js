@@ -36,6 +36,7 @@ export default async function socketHandler(io) {
          if (savedMessageDetails.success) {
             // Broadcast the received message to all users in the same room
             await io.to(data.groupId).emit("message", {
+               groupId: savedMessageDetails.messageData.groupId,
                userId: savedMessageDetails.messageData.senderId._id,
                username: savedMessageDetails.messageData.senderId.username,
                text: savedMessageDetails.messageData.text,
