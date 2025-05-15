@@ -1,4 +1,5 @@
-JobNest is a full-stack job portal web application that connects recruiters with job seekers through a secure and intuitive platform. Built with modern web technologies, JobNest allows recruiters to post jobs, manage applicants, and review resumes, while job seekers can explore opportunities and apply with ease. It also features an admin dashboard to monitor and manage user activity across the platform.
+JobNest:
+	JobNest is a full-stack job portal web application that connects recruiters with job seekers through a secure and intuitive platform. Built with modern web technologies, JobNest allows recruiters to post jobs, manage applicants, and review resumes, while job seekers can explore opportunities and apply with ease. It also features an admin dashboard to monitor and manage user activity across the platform.
 
 Hosting: Render
 🌐 Live Site: https://jobnest-vx6x.onrender.com/
