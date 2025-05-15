@@ -78,3 +78,74 @@ It also features an admin dashboard to monitor and manage user activity across t
 - Apply for jobs.  
 - Upload resumes.  
 - Track application statuses.  
+
+---
+---
+
+# 💬 NodeChat
+
+**NodeChat** is a real-time chat application built with Node.js and Socket.IO, offering seamless group communication.  
+It features user registration with email verification, secure JWT-based authentication, and persistent chat storage.  
+Users can chat instantly, create groups, and invite friends via email—all in a fast, responsive, and secure environment.
+
+---
+
+## 🌐 Hosting
+
+**Live Site:** [https://nodechat-fjp4.onrender.com/](https://nodechat-fjp4.onrender.com/)
+
+---
+
+## 🚀 Features
+
+### 🔐 Authentication & Authorization
+1. User registration with email verification.  
+2. Secure login using JWT (JSON Web Token).  
+3. Route protection using token-based authentication.
+
+### 💬 Real-Time Chat
+1. Instant messaging powered by Socket.IO.  
+2. Messages are stored persistently in the database.  
+3. Smooth and fast communication between users.
+
+### 👥 Group Chat
+1. Create and manage chat groups.  
+2. Send messages in group conversations.  
+
+### 📧 Invite Friends
+1. Invite friends to chat using their email address.  
+2. Email-based invitations for joining the app or chat groups.  
+3. Easy onboarding for new users through group Id and temporary password.
+
+---
+
+## 🧰 Tech Stack
+
+**Frontend:**  
+- EJS  
+- HTML  
+- CSS  
+- Bootstrap  
+- JavaScript  
+
+**Backend:**  
+- Node.js  
+- Express.js  
+- Socket.IO  
+- MongoDB (with Mongoose)  
+
+**Authentication:**  
+- JWT (JSON Web Tokens)  
+- Nodemailer for email verification  
+
+---
+
+## 👤 Roles Breakdown
+
+### 🙋 Registered User
+- Verify email and log in securely.  
+- View and manage chat history.  
+- Create and manage group chats.  
+- Invite others to join via email.  
+
+---
