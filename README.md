@@ -1,4 +1,4 @@
-JobNest
+(Project 1) - JobNest 
 ---
 **JobNest** is a full-stack job portal web application that connects recruiters with job seekers through a secure and intuitive platform.  
 Built with modern web technologies, JobNest allows recruiters to post jobs, manage applicants, and review resumes,  
@@ -73,7 +73,7 @@ It also features an admin dashboard to monitor and manage user activity across t
 
 ---
 
-# 💬 NodeChat
+# (Project 2) - NodeChat
 
 **NodeChat** is a real-time chat application built with Node.js and Socket.IO, offering seamless group communication.  
 It features user registration with email verification, secure JWT-based authentication, and persistent chat storage.  
