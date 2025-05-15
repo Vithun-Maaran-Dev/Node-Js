@@ -10,8 +10,6 @@ It also features an admin dashboard to monitor and manage user activity across t
 
 **Live Site:** [https://jobnest-vx6x.onrender.com/](https://jobnest-vx6x.onrender.com/)
 
----
-
 ## 🚀 Features
 
 ### 👨‍💼 Recruiter Panel
@@ -32,8 +30,6 @@ It also features an admin dashboard to monitor and manage user activity across t
 4. Access control and system oversight.  
 5. View platform usage and ensure compliance.  
 
----
-
 ## 🔐 Authentication & Authorization
 
 1. Secure login and signup for all users.  
@@ -42,8 +38,6 @@ It also features an admin dashboard to monitor and manage user activity across t
    - Job Seekers  
    - Admin  
 3. Session management and route protection to ensure data privacy.  
-
----
 
 ## 🧰 Tech Stack
 
