@@ -80,13 +80,9 @@ It also features an admin dashboard to monitor and manage user activity across t
 It features user registration with email verification, secure JWT-based authentication, and persistent chat storage.  
 Users can chat instantly, create groups, and invite friends via email—all in a fast, responsive, and secure environment.
 
----
-
 ## 🌐 Hosting
 
 **Live Site:** [https://nodechat-fjp4.onrender.com/](https://nodechat-fjp4.onrender.com/)
-
----
 
 ## 🚀 Features
 
@@ -109,8 +105,6 @@ Users can chat instantly, create groups, and invite friends via email—all in a
 2. Email-based invitations for joining the app or chat groups.  
 3. Easy onboarding for new users through group Id and temporary password.
 
----
-
 ## 🧰 Tech Stack
 
 **Frontend:**  
@@ -129,8 +123,6 @@ Users can chat instantly, create groups, and invite friends via email—all in a
 **Authentication:**  
 - JWT (JSON Web Tokens)  
 - Nodemailer for email verification  
-
----
 
 ## 👤 Roles Breakdown
 
