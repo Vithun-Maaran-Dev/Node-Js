@@ -42,7 +42,6 @@ export default async function socketHandler(io) {
                text: savedMessageDetails.messageData.text,
                timestamp: savedMessageDetails.messageData.timestamp
             });
-
          }
          else {
             socket.broadcast.to(data.groupId).emit('mess-error', {
