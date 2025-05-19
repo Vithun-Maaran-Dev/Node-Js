@@ -67,17 +67,11 @@ app.use((req, res, next) => {
 //socket connection made
 socketHandler(io);
 
-// app.get(`/`, (req, res) => {
-//    res.render('index')
-// });
-
-app.get("/", (req, res) => {
-  res.send("Hurray! I have successfully deployed this application on AWS.");
+app.get(`/`, (req, res) => {
+   res.render('index')
 });
-
 
 app.use('/api/user', userRouter)
 app.use('/api/group', groupRouter)
-
 
 export default server;
