@@ -73,8 +73,8 @@ app.get("/", (req, res) => {
 
 
 // app.get(`/`, (req, res) => {
-   res.render('index')
-});
+//    res.render('index')
+// });
 
 app.use('/api/user', userRouter)
 app.use('/api/group', groupRouter)
