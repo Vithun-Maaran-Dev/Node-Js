@@ -67,7 +67,12 @@ app.use((req, res, next) => {
 //socket connection made
 socketHandler(io);
 
-app.get(`/`, (req, res) => {
+app.get("/", (req, res) => {
+  res.send("Hurray! I have successfully deployed this application on AWS.");
+});
+
+
+// app.get(`/`, (req, res) => {
    res.render('index')
 });
 
