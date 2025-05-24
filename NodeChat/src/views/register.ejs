@@ -75,9 +75,8 @@
 
       let email = document.getElementById("email");
 
-      email.setAttribute('readonly', true); 
-
       if (email.value) {
+         email.setAttribute('readonly', true); 
          const res = await fetch('/api/user/send-email', {
             method: 'POST',
             headers: {
