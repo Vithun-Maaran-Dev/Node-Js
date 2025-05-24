@@ -97,6 +97,7 @@
             const errorData = await res.json();
             console.log(errorData);
             alert(`Error: ${errorData.message || 'Failed to send email.'}`);
+            email.setAttribute('readonly', false); 
          }
       } else {
          alert('Please enter email.');
